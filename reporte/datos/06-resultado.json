@@ -1,0 +1,132 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/generos/falta",
+    "header": [
+      {
+        "disabled": false,
+        "description": {
+          "content": "Header: Content-Type",
+          "type": "text/plain"
+        },
+        "key": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "key": "Authorization",
+        "value": "Bearer [TOKEN OCULTO]",
+        "system": true
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "db90cbe7-7133-4e46-ad6e-5c802354575c",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      },
+      {
+        "key": "Content-Length",
+        "value": "82",
+        "system": true
+      }
+    ],
+    "method": "POST",
+    "body": "{\"nombre\": \"Tecnología\", \"descripcion\": \"Libros sobre programación y sistemas.\"}",
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "type": "any",
+          "value": "[TOKEN OCULTO]",
+          "key": "token"
+        }
+      ]
+    }
+  },
+  "response": {
+    "id": "fbdbe66f-8573-4d65-b77d-91744c2ccb7c",
+    "status": "Created",
+    "code": 201,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "245"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"f5-GQk/P8sAPmfY0sAyj2W6qk3yhYE\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:29:55 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 69,
+    "responseSize": 245,
+    "downloadedBytes": 245,
+    "body": "{\"mensaje\": \"Género creado exitosamente\", \"datos\": {\"nombre\": \"Tecnología\", \"descripcion\": \"Libros sobre programación y sistemas.\", \"_id\": \"6ae19663f7ec6f62e9ea9576\", \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\", \"__v\": 0, \"id\": \"6ae19663f7ec6f62e9ea9576\"}}"
+  },
+  "timestamp": "2026-10-28T06:29:55.408Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 201",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Género guardado",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

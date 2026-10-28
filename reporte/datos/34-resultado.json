@@ -1,0 +1,132 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/generos/baja/6ae196def7ec6f62e9ea9579",
+    "header": [
+      {
+        "disabled": false,
+        "description": {
+          "content": "Header: Content-Type",
+          "type": "text/plain"
+        },
+        "key": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "key": "Authorization",
+        "value": "Bearer [TOKEN OCULTO]",
+        "system": true
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "b09fb5d2-e926-4c11-bba2-3e024cc6f9f5",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      },
+      {
+        "key": "Content-Length",
+        "value": "20",
+        "system": true
+      }
+    ],
+    "method": "PUT",
+    "body": "{\"nombre\": \"Ensayo\"}",
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "type": "any",
+          "value": "[TOKEN OCULTO]",
+          "key": "token"
+        }
+      ]
+    }
+  },
+  "response": {
+    "id": "9ee56e9b-0687-4922-b3aa-fef95e59b4cd",
+    "status": "Conflict",
+    "code": 409,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "49"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"31-GeEV9EkgWtu0xI62sY58ag/Fiks\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:32:01 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 33,
+    "responseSize": 49,
+    "downloadedBytes": 49,
+    "body": "{\"mensaje\": \"Ya existe un género con ese nombre\"}"
+  },
+  "timestamp": "2026-10-28T06:32:01.145Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 409",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Respuesta JSON",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

@@ -1,0 +1,6 @@
+simulation: openlibrary
+routing: path
+mocks:
+  - name: openlibrary
+    routeKey: openlibrary
+    path: postman/mocks/openlibrary/config.yaml

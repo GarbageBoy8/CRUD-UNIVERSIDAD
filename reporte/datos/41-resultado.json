@@ -1,0 +1,132 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/libros/baja/000000000000000000000000",
+    "header": [
+      {
+        "disabled": false,
+        "description": {
+          "content": "Header: Content-Type",
+          "type": "text/plain"
+        },
+        "key": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "key": "Authorization",
+        "value": "Bearer [TOKEN OCULTO]",
+        "system": true
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "419d996a-9b6c-4c17-b562-2ece04e6e07a",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      },
+      {
+        "key": "Content-Length",
+        "value": "17",
+        "system": true
+      }
+    ],
+    "method": "PUT",
+    "body": "{\"ejemplares\": 2}",
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "type": "any",
+          "value": "[TOKEN OCULTO]",
+          "key": "token"
+        }
+      ]
+    }
+  },
+  "response": {
+    "id": "8be95a5d-be92-468f-864b-5a0c6a52cb7d",
+    "status": "Not Found",
+    "code": 404,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "57"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"39-63wtbYe3wObSeAP/oGsmp+XtwO8\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:32:18 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 17,
+    "responseSize": 57,
+    "downloadedBytes": 57,
+    "body": "{\"mensaje\": \"Libro no encontrado con el ID proporcionado\"}"
+  },
+  "timestamp": "2026-10-28T06:32:18.510Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 404",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Respuesta JSON",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

@@ -1,0 +1,118 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/generos/obtenerUno/6ae19663f7ec6f62e9ea9576",
+    "header": [
+      {
+        "key": "Authorization",
+        "value": "Bearer [TOKEN OCULTO]",
+        "system": true
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "0c5b1b46-f878-417a-9bac-a71bdaa6e7a0",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "GET",
+    "body": "",
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "type": "any",
+          "value": "[TOKEN OCULTO]",
+          "key": "token"
+        }
+      ]
+    }
+  },
+  "response": {
+    "id": "c7615b3f-5bfb-456b-82e1-b41b1f31b18d",
+    "status": "Not Found",
+    "code": 404,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "59"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"3b-W46PUUIlHuT2ipZe6MxJEjF+UKE\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:30:38 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 18,
+    "responseSize": 59,
+    "downloadedBytes": 59,
+    "body": "{\"mensaje\": \"Género no encontrado con el ID proporcionado\"}"
+  },
+  "timestamp": "2026-10-28T06:30:38.155Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 404",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Respuesta JSON",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

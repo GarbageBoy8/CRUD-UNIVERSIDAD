@@ -1,0 +1,118 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/generos/obtenerVarios",
+    "header": [
+      {
+        "key": "Authorization",
+        "value": "Bearer [TOKEN OCULTO]",
+        "system": true
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "a090b555-0692-41ec-b94a-b0869702b856",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "GET",
+    "body": "",
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "type": "any",
+          "value": "invalido",
+          "key": "token"
+        }
+      ]
+    }
+  },
+  "response": {
+    "id": "a3977bcb-3027-45e5-b224-ba4aae5a3727",
+    "status": "Unauthorized",
+    "code": 401,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "29"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"1d-VWvWn/CMLTKzZCPMkBbno0+dZwc\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:31:46 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 16,
+    "responseSize": 29,
+    "downloadedBytes": 29,
+    "body": "{\"mensaje\": \"Token inválido\"}"
+  },
+  "timestamp": "2026-10-28T06:31:46.103Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 401",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Respuesta JSON",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

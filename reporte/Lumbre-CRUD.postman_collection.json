@@ -1,0 +1,3565 @@
+{
+  "info": {
+    "name": "Lumbre — Entrega SDD — 51 pruebas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Contrato: docs/ESPECIFICACION-SDD.md. 51 solicitudes y 102 aserciones; 22–25 proveedor simulado; 50–51 Open Library real. Seguir reporte/LEEME.txt."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8031",
+      "type": "string"
+    },
+    {
+      "key": "baseExterna",
+      "value": "http://127.0.0.1:8032",
+      "type": "string"
+    },
+    {
+      "key": "usuario",
+      "value": "practica",
+      "type": "string"
+    },
+    {
+      "key": "contrasena",
+      "value": "PracticaCRUD2026!",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "tokenVencido",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "idGenero",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "idLibro",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "idOtroGenero",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01. Consultar los recursos de la API",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api",
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "Caso 1: Consultar los recursos de la API. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api",
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Caso 1: Consultar los recursos de la API. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"sistema\": \"Lumbre · Biblioteca\",\n  \"relacion\": \"Un género tiene muchos libros\",\n  \"auth\": \"POST /auth/login { usuario, contrasena }\",\n  \"recursos\": [\n    \"/libros\",\n    \"/generos\"\n  ],\n  \"operaciones\": [\n    \"POST /falta\",\n    \"GET /obtenerVarios\",\n    \"GET /obtenerUno/:id\",\n    \"PUT /baja/:id\",\n    \"DELETE /eliminar/:id\"\n  ],\n  \"servicios\": [\n    \"GET /servicios/libros?q=termino\",\n    \"GET /servicios/libros/:id\"\n  ]\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02. Rechazar una contraseña incorrecta",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/auth/login",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuario\": \"practica\",\n  \"contrasena\": \"incorrecta\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 2: Rechazar una contraseña incorrecta. Estado esperado 401. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 401",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuario\": \"practica\",\n  \"contrasena\": \"incorrecta\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 2: Rechazar una contraseña incorrecta. Estado esperado 401. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "401",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Usuario o contraseña incorrectos\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 401',()=>pm.response.to.have.status(401));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03. Obtener el token JWT de acceso",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/auth/login",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuario\": \"{{usuario}}\",\n  \"contrasena\": \"{{contrasena}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 3: Obtener el token JWT de acceso. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuario\": \"{{usuario}}\",\n  \"contrasena\": \"{{contrasena}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 3: Obtener el token JWT de acceso. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJh... [oculto por seguridad]\",\n  \"usuarioAutenticado\": \"practica\",\n  \"duracion\": \"1 hora\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Token recibido',()=>pm.expect(pm.response.json().token).to.be.a('string'));",
+              "pm.collectionVariables.set('token',pm.response.json().token);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04. Rechazar una petición sin token",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/libros/obtenerVarios",
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "Caso 4: Rechazar una petición sin token. Estado esperado 401. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 401",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/libros/obtenerVarios",
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Caso 4: Rechazar una petición sin token. Estado esperado 401. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "401",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Envía Authorization: Bearer <token>\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 401',()=>pm.response.to.have.status(401));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "05. Rechazar un token vencido",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/generos/obtenerVarios",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{tokenVencido}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 5: Rechazar un token vencido. Estado esperado 403. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 403",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/generos/obtenerVarios",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenVencido}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 5: Rechazar un token vencido. Estado esperado 403. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "403",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"token expirado\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403',()=>pm.response.to.have.status(403));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06. Crear un género literario",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/generos/falta",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Tecnología\",\n  \"descripcion\": \"Libros sobre programación y sistemas.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 6: Crear un género literario. Estado esperado 201. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 201",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/generos/falta",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Tecnología\",\n  \"descripcion\": \"Libros sobre programación y sistemas.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 6: Crear un género literario. Estado esperado 201. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "201",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Género creado exitosamente\",\n  \"datos\": {\n    \"nombre\": \"Tecnología\",\n    \"descripcion\": \"Libros sobre programación y sistemas.\",\n    \"_id\": \"6ae19663f7ec6f62e9ea9576\",\n    \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\",\n    \"__v\": 0,\n    \"id\": \"6ae19663f7ec6f62e9ea9576\"\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 201',()=>pm.response.to.have.status(201));",
+              "pm.test('Género guardado',()=>pm.expect(pm.response.json().datos.nombre).to.eql('Tecnología'));",
+              "pm.collectionVariables.set('idGenero',pm.response.json().datos._id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "07. Consultar todos los géneros",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/generos/obtenerVarios",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 7: Consultar todos los géneros. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/generos/obtenerVarios",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 7: Consultar todos los géneros. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Listado obtenido exitosamente\",\n  \"datos\": [\n    {\n      \"_id\": \"6ae19663f7ec6f62e9ea9576\",\n      \"nombre\": \"Tecnología\",\n      \"descripcion\": \"Libros sobre programación y sistemas.\",\n      \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\",\n      \"__v\": 0,\n      \"libros\": [],\n      \"id\": \"6ae19663f7ec6f62e9ea9576\"\n    }\n  ]\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Un género registrado',()=>pm.expect(pm.response.json().datos).to.have.lengthOf(1));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "08. Consultar un género por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/generos/obtenerUno/{{idGenero}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 8: Consultar un género por ID. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/generos/obtenerUno/{{idGenero}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 8: Consultar un género por ID. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Género obtenido exitosamente\",\n  \"datos\": {\n    \"_id\": \"6ae19663f7ec6f62e9ea9576\",\n    \"nombre\": \"Tecnología\",\n    \"descripcion\": \"Libros sobre programación y sistemas.\",\n    \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\",\n    \"__v\": 0,\n    \"libros\": [],\n    \"id\": \"6ae19663f7ec6f62e9ea9576\"\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Nombre esperado',()=>pm.expect(pm.response.json().datos.nombre).to.eql('Tecnología'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "09. Actualizar un género",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/generos/baja/{{idGenero}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Informática\",\n  \"descripcion\": \"Programación, bases de datos y redes.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 9: Actualizar un género. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/generos/baja/{{idGenero}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Informática\",\n  \"descripcion\": \"Programación, bases de datos y redes.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 9: Actualizar un género. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Género actualizado exitosamente\",\n  \"datos\": {\n    \"_id\": \"6ae19663f7ec6f62e9ea9576\",\n    \"nombre\": \"Informática\",\n    \"descripcion\": \"Programación, bases de datos y redes.\",\n    \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\",\n    \"__v\": 0,\n    \"id\": \"6ae19663f7ec6f62e9ea9576\"\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Nombre actualizado',()=>pm.expect(pm.response.json().datos.nombre).to.eql('Informática'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. Crear un libro vinculado al género",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/libros/falta",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Fundamentos de APIs REST\",\n  \"autor\": \"Ana Torres\",\n  \"genero\": \"{{idGenero}}\",\n  \"ubicacion\": \"A-01\",\n  \"ejemplares\": 3\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 10: Crear un libro vinculado al género. Estado esperado 201. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 201",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/libros/falta",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Fundamentos de APIs REST\",\n  \"autor\": \"Ana Torres\",\n  \"genero\": \"{{idGenero}}\",\n  \"ubicacion\": \"A-01\",\n  \"ejemplares\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 10: Crear un libro vinculado al género. Estado esperado 201. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "201",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Libro creado exitosamente\",\n  \"datos\": {\n    \"nombre\": \"Fundamentos de APIs REST\",\n    \"autor\": \"Ana Torres\",\n    \"genero\": {\n      \"_id\": \"6ae19663f7ec6f62e9ea9576\",\n      \"nombre\": \"Informática\",\n      \"descripcion\": \"Programación, bases de datos y redes.\",\n      \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\",\n      \"__v\": 0,\n      \"id\": \"6ae19663f7ec6f62e9ea9576\"\n    },\n    \"ubicacion\": \"A-01\",\n    \"ejemplares\": 3,\n    \"_id\": \"6ae1966ff7ec6f62e9ea9577\",\n    \"fechaCreacion\": \"2026-10-28T06:30:07.404Z\",\n    \"__v\": 0\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 201',()=>pm.response.to.have.status(201));",
+              "pm.test('Relación poblada',()=>pm.expect(pm.response.json().datos.genero.nombre).to.eql('Informática'));",
+              "pm.collectionVariables.set('idLibro',pm.response.json().datos._id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "11. Consultar el catálogo de libros",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/libros/obtenerVarios",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 11: Consultar el catálogo de libros. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/libros/obtenerVarios",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 11: Consultar el catálogo de libros. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Listado obtenido exitosamente\",\n  \"datos\": [\n    {\n      \"_id\": \"6ae1966ff7ec6f62e9ea9577\",\n      \"nombre\": \"Fundamentos de APIs REST\",\n      \"autor\": \"Ana Torres\",\n      \"genero\": {\n        \"_id\": \"6ae19663f7ec6f62e9ea9576\",\n        \"nombre\": \"Informática\",\n        \"descripcion\": \"Programación, bases de datos y redes.\",\n        \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\",\n        \"__v\": 0,\n        \"id\": \"6ae19663f7ec6f62e9ea9576\"\n      },\n      \"ubicacion\": \"A-01\",\n      \"ejemplares\": 3,\n      \"fechaCreacion\": \"2026-10-28T06:30:07.404Z\",\n      \"__v\": 0\n    }\n  ]\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Un libro registrado',()=>pm.expect(pm.response.json().datos).to.have.lengthOf(1));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "12. Consultar un libro por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/libros/obtenerUno/{{idLibro}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 12: Consultar un libro por ID. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/libros/obtenerUno/{{idLibro}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 12: Consultar un libro por ID. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Libro obtenido exitosamente\",\n  \"datos\": {\n    \"_id\": \"6ae1966ff7ec6f62e9ea9577\",\n    \"nombre\": \"Fundamentos de APIs REST\",\n    \"autor\": \"Ana Torres\",\n    \"genero\": {\n      \"_id\": \"6ae19663f7ec6f62e9ea9576\",\n      \"nombre\": \"Informática\",\n      \"descripcion\": \"Programación, bases de datos y redes.\",\n      \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\",\n      \"__v\": 0,\n      \"id\": \"6ae19663f7ec6f62e9ea9576\"\n    },\n    \"ubicacion\": \"A-01\",\n    \"ejemplares\": 3,\n    \"fechaCreacion\": \"2026-10-28T06:30:07.404Z\",\n    \"__v\": 0\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Autor esperado',()=>pm.expect(pm.response.json().datos.autor).to.eql('Ana Torres'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "13. Actualizar estante y ejemplares",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/libros/baja/{{idLibro}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ubicacion\": \"B-02\",\n  \"ejemplares\": 5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 13: Actualizar estante y ejemplares. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/libros/baja/{{idLibro}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ubicacion\": \"B-02\",\n  \"ejemplares\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 13: Actualizar estante y ejemplares. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Libro actualizado exitosamente\",\n  \"datos\": {\n    \"_id\": \"6ae1966ff7ec6f62e9ea9577\",\n    \"nombre\": \"Fundamentos de APIs REST\",\n    \"autor\": \"Ana Torres\",\n    \"genero\": {\n      \"_id\": \"6ae19663f7ec6f62e9ea9576\",\n      \"nombre\": \"Informática\",\n      \"descripcion\": \"Programación, bases de datos y redes.\",\n      \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\",\n      \"__v\": 0,\n      \"id\": \"6ae19663f7ec6f62e9ea9576\"\n    },\n    \"ubicacion\": \"B-02\",\n    \"ejemplares\": 5,\n    \"fechaCreacion\": \"2026-10-28T06:30:07.404Z\",\n    \"__v\": 0\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Cambios guardados',()=>{pm.expect(pm.response.json().datos.ubicacion).to.eql('B-02');pm.expect(pm.response.json().datos.ejemplares).to.eql(5);});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "14. Proteger un género con libros asociados",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/generos/eliminar/{{idGenero}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 14: Proteger un género con libros asociados. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/generos/eliminar/{{idGenero}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 14: Proteger un género con libros asociados. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"No se puede eliminar el género porque tiene 1 libro(s) asociado(s)\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Explica la referencia',()=>pm.expect(pm.response.json().mensaje).to.include('asociado'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "15. Rechazar ejemplares negativos",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/libros/baja/{{idLibro}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ejemplares\": -2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 15: Rechazar ejemplares negativos. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/libros/baja/{{idLibro}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ejemplares\": -2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 15: Rechazar ejemplares negativos. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Los ejemplares deben ser un entero no negativo\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "16. Rechazar un ID con formato inválido",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/libros/obtenerUno/id-invalido",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 16: Rechazar un ID con formato inválido. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/libros/obtenerUno/id-invalido",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 16: Rechazar un ID con formato inválido. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"El ID proporcionado no es un ObjectId válido\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "17. Eliminar un libro",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/libros/eliminar/{{idLibro}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 17: Eliminar un libro. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/libros/eliminar/{{idLibro}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 17: Eliminar un libro. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Libro eliminado exitosamente\",\n  \"datos\": {\n    \"_id\": \"6ae1966ff7ec6f62e9ea9577\",\n    \"nombre\": \"Fundamentos de APIs REST\",\n    \"autor\": \"Ana Torres\",\n    \"genero\": \"6ae19663f7ec6f62e9ea9576\",\n    \"ubicacion\": \"B-02\",\n    \"ejemplares\": 5,\n    \"fechaCreacion\": \"2026-10-28T06:30:07.404Z\",\n    \"__v\": 0\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Devuelve el registro eliminado',()=>pm.expect(pm.response.json().datos.nombre).to.eql('Fundamentos de APIs REST'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "18. Comprobar que el libro ya no existe",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/libros/obtenerUno/{{idLibro}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 18: Comprobar que el libro ya no existe. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 404",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/libros/obtenerUno/{{idLibro}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 18: Comprobar que el libro ya no existe. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "404",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Libro no encontrado con el ID proporcionado\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404',()=>pm.response.to.have.status(404));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "19. Eliminar el género sin libros asociados",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/generos/eliminar/{{idGenero}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 19: Eliminar el género sin libros asociados. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/generos/eliminar/{{idGenero}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 19: Eliminar el género sin libros asociados. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Género eliminado exitosamente\",\n  \"datos\": {\n    \"_id\": \"6ae19663f7ec6f62e9ea9576\",\n    \"nombre\": \"Informática\",\n    \"descripcion\": \"Programación, bases de datos y redes.\",\n    \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\",\n    \"__v\": 0,\n    \"id\": \"6ae19663f7ec6f62e9ea9576\"\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "20. Comprobar el catálogo vacío",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/libros/obtenerVarios",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 20: Comprobar el catálogo vacío. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/libros/obtenerVarios",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 20: Comprobar el catálogo vacío. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Listado obtenido exitosamente\",\n  \"datos\": []\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('No quedan libros',()=>pm.expect(pm.response.json().datos).to.have.lengthOf(0));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "21. Comprobar la eliminación del género",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/generos/obtenerUno/{{idGenero}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 21: Comprobar la eliminación del género. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 404",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/generos/obtenerUno/{{idGenero}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 21: Comprobar la eliminación del género. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "404",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Género no encontrado con el ID proporcionado\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404',()=>pm.response.to.have.status(404));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "22. Buscar obras: Open Library SIMULADO",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseExterna}}/servicios/libros?q=fox",
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "Caso 22: Buscar obras: Open Library SIMULADO. Estado esperado 200. Proveedor simulado."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseExterna}}/servicios/libros?q=fox",
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Caso 22: Buscar obras: Open Library SIMULADO. Estado esperado 200. Proveedor simulado."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"datos\": [\n    {\n      \"id\": \"OL45804W\",\n      \"nombre\": \"Fantastic Mr. Fox\",\n      \"autor\": \"Roald Dahl\",\n      \"anio\": 1970\n    }\n  ],\n  \"total\": 1\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Obra adaptada',()=>pm.expect(pm.response.json().datos[0].nombre).to.eql('Fantastic Mr. Fox'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "23. Consultar ficha: proveedor SIMULADO",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseExterna}}/servicios/libros/OL45804W",
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "Caso 23: Consultar ficha: proveedor SIMULADO. Estado esperado 200. Proveedor simulado."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseExterna}}/servicios/libros/OL45804W",
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Caso 23: Consultar ficha: proveedor SIMULADO. Estado esperado 200. Proveedor simulado."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"datos\": {\n    \"id\": \"OL45804W\",\n    \"nombre\": \"Fantastic Mr. Fox\",\n    \"resumen\": \"Esta obra no tiene una descripción disponible.\"\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Descripción opcional',()=>pm.expect(pm.response.json().datos.resumen).to.include('no tiene una descripción'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "24. Obra inexistente: proveedor SIMULADO",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseExterna}}/servicios/libros/OL999999W",
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "Caso 24: Obra inexistente: proveedor SIMULADO. Estado esperado 404. Proveedor simulado."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 404",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseExterna}}/servicios/libros/OL999999W",
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Caso 24: Obra inexistente: proveedor SIMULADO. Estado esperado 404. Proveedor simulado."
+          },
+          "status": "404",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Obra no encontrada\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404',()=>pm.response.to.have.status(404));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "25. Falla del proveedor: respuesta 502",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseExterna}}/servicios/libros?q=upstream-error",
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "Caso 25: Falla del proveedor: respuesta 502. Estado esperado 502. Proveedor simulado."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 502",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseExterna}}/servicios/libros?q=upstream-error",
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Caso 25: Falla del proveedor: respuesta 502. Estado esperado 502. Proveedor simulado."
+          },
+          "status": "502",
+          "code": 502,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Open Library no está disponible. Vuelve a intentarlo más tarde.\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 502',()=>pm.response.to.have.status(502));",
+              "pm.test('Error controlado',()=>pm.expect(pm.response.json().mensaje).to.include('no está disponible'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "26. Renovar acceso para pruebas negativas",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/auth/login",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuario\": \"{{usuario}}\",\n  \"contrasena\": \"{{contrasena}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 26: Renovar acceso para pruebas negativas. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuario\": \"{{usuario}}\",\n  \"contrasena\": \"{{contrasena}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 26: Renovar acceso para pruebas negativas. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJh... [oculto por seguridad]\",\n  \"usuarioAutenticado\": \"practica\",\n  \"duracion\": \"1 hora\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Token recibido',()=>pm.expect(pm.response.json().token).to.be.a('string'));",
+              "pm.collectionVariables.set('token',pm.response.json().token);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "27. Login sin campos requeridos",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/auth/login",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 27: Login sin campos requeridos. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 27: Login sin campos requeridos. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Escribe tu usuario y contraseña\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "28. Token inválido en consulta general",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/generos/obtenerVarios",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "invalido",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 28: Token inválido en consulta general. Estado esperado 401. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 401",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/generos/obtenerVarios",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "invalido",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 28: Token inválido en consulta general. Estado esperado 401. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "401",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Token inválido\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 401',()=>pm.response.to.have.status(401));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "29. Alta de género sin nombre",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/generos/falta",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descripcion\": \"Falta nombre\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 29: Alta de género sin nombre. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/generos/falta",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descripcion\": \"Falta nombre\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 29: Alta de género sin nombre. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"El campo nombre debe ser texto no vacío\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "30. Crear género para validar conflictos",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/generos/falta",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Ensayo\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 30: Crear género para validar conflictos. Estado esperado 201. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 201",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/generos/falta",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ensayo\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 30: Crear género para validar conflictos. Estado esperado 201. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "201",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Género creado exitosamente\",\n  \"datos\": {\n    \"nombre\": \"Ensayo\",\n    \"descripcion\": \"\",\n    \"_id\": \"6ae196d7f7ec6f62e9ea9578\",\n    \"fechaCreacion\": \"2026-10-28T06:31:51.104Z\",\n    \"__v\": 0,\n    \"id\": \"6ae196d7f7ec6f62e9ea9578\"\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 201',()=>pm.response.to.have.status(201));",
+              "pm.test('Nombre guardado',()=>pm.expect(pm.response.json().datos.nombre).to.eql('Ensayo'));",
+              "pm.collectionVariables.set('idGenero',pm.response.json().datos._id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "31. Alta de género duplicado",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/generos/falta",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Ensayo\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 31: Alta de género duplicado. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/generos/falta",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ensayo\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 31: Alta de género duplicado. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"El género ya existe\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "32. Cambio de género con nombre vacío",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/generos/baja/{{idGenero}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 32: Cambio de género con nombre vacío. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/generos/baja/{{idGenero}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 32: Cambio de género con nombre vacío. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"El campo nombre debe ser texto no vacío\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "33. Crear segundo género",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/generos/falta",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Historia\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 33: Crear segundo género. Estado esperado 201. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 201",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/generos/falta",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Historia\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 33: Crear segundo género. Estado esperado 201. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "201",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Género creado exitosamente\",\n  \"datos\": {\n    \"nombre\": \"Historia\",\n    \"descripcion\": \"\",\n    \"_id\": \"6ae196def7ec6f62e9ea9579\",\n    \"fechaCreacion\": \"2026-10-28T06:31:58.578Z\",\n    \"__v\": 0,\n    \"id\": \"6ae196def7ec6f62e9ea9579\"\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 201',()=>pm.response.to.have.status(201));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+              "pm.collectionVariables.set('idOtroGenero',pm.response.json().datos._id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "34. Renombrado con nombre duplicado",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/generos/baja/{{idOtroGenero}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Ensayo\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 34: Renombrado con nombre duplicado. Estado esperado 409. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 409",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/generos/baja/{{idOtroGenero}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ensayo\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 34: Renombrado con nombre duplicado. Estado esperado 409. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "409",
+          "code": 409,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Ya existe un género con ese nombre\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 409',()=>pm.response.to.have.status(409));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "35. Consulta de género con ID inválido",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/generos/obtenerUno/invalido",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 35: Consulta de género con ID inválido. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/generos/obtenerUno/invalido",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 35: Consulta de género con ID inválido. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"El ID proporcionado no es un ObjectId válido\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "36. Cambio de género inexistente",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/generos/baja/000000000000000000000000",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"No existe\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 36: Cambio de género inexistente. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 404",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/generos/baja/000000000000000000000000",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"No existe\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 36: Cambio de género inexistente. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "404",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Género no encontrado con el ID proporcionado\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404',()=>pm.response.to.have.status(404));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "37. Baja de género inexistente",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/generos/eliminar/000000000000000000000000",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 37: Baja de género inexistente. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 404",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/generos/eliminar/000000000000000000000000",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 37: Baja de género inexistente. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "404",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Género no encontrado con el ID proporcionado\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404',()=>pm.response.to.have.status(404));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "38. Alta de libro sin autor",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/libros/falta",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Ensayos\",\n  \"genero\": \"{{idGenero}}\",\n  \"ubicacion\": \"C-01\",\n  \"ejemplares\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 38: Alta de libro sin autor. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/libros/falta",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ensayos\",\n  \"genero\": \"{{idGenero}}\",\n  \"ubicacion\": \"C-01\",\n  \"ejemplares\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 38: Alta de libro sin autor. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"El campo autor debe ser texto no vacío\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "39. Alta de libro con género inexistente",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/libros/falta",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Ensayos\",\n  \"autor\": \"Autor de prueba\",\n  \"genero\": \"000000000000000000000000\",\n  \"ubicacion\": \"C-01\",\n  \"ejemplares\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 39: Alta de libro con género inexistente. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/libros/falta",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ensayos\",\n  \"autor\": \"Autor de prueba\",\n  \"genero\": \"000000000000000000000000\",\n  \"ubicacion\": \"C-01\",\n  \"ejemplares\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 39: Alta de libro con género inexistente. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"El género indicado no existe; crea primero el género\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "40. Alta de libro con ejemplares fraccionarios",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/libros/falta",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Ensayos\",\n  \"autor\": \"Autor de prueba\",\n  \"genero\": \"{{idGenero}}\",\n  \"ubicacion\": \"C-01\",\n  \"ejemplares\": 1.5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 40: Alta de libro con ejemplares fraccionarios. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/libros/falta",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ensayos\",\n  \"autor\": \"Autor de prueba\",\n  \"genero\": \"{{idGenero}}\",\n  \"ubicacion\": \"C-01\",\n  \"ejemplares\": 1.5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 40: Alta de libro con ejemplares fraccionarios. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Los ejemplares deben ser un entero no negativo\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "41. Cambio de libro inexistente",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/libros/baja/000000000000000000000000",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ejemplares\": 2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 41: Cambio de libro inexistente. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 404",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/libros/baja/000000000000000000000000",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ejemplares\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 41: Cambio de libro inexistente. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "404",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Libro no encontrado con el ID proporcionado\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404',()=>pm.response.to.have.status(404));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "42. Cambio de libro con campos no permitidos",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/libros/baja/000000000000000000000000",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"propietario\": \"otro\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Caso 42: Cambio de libro con campos no permitidos. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/libros/baja/000000000000000000000000",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propietario\": \"otro\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Caso 42: Cambio de libro con campos no permitidos. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Envía al menos un campo editable válido para actualizar\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "43. Baja de libro inexistente",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/libros/eliminar/000000000000000000000000",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 43: Baja de libro inexistente. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 404",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/libros/eliminar/000000000000000000000000",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 43: Baja de libro inexistente. Estado esperado 404. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "404",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Libro no encontrado con el ID proporcionado\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404',()=>pm.response.to.have.status(404));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "44. Baja de libro con ID inválido",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/libros/eliminar/invalido",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 44: Baja de libro con ID inválido. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/libros/eliminar/invalido",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 44: Baja de libro con ID inválido. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"El ID proporcionado no es un ObjectId válido\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "45. Eliminar género de control",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/generos/eliminar/{{idOtroGenero}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 45: Eliminar género de control. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/generos/eliminar/{{idOtroGenero}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 45: Eliminar género de control. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Género eliminado exitosamente\",\n  \"datos\": {\n    \"_id\": \"6ae196def7ec6f62e9ea9579\",\n    \"nombre\": \"Historia\",\n    \"descripcion\": \"\",\n    \"fechaCreacion\": \"2026-10-28T06:31:58.578Z\",\n    \"__v\": 0,\n    \"id\": \"6ae196def7ec6f62e9ea9579\"\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "46. Eliminar género de pruebas negativas",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/generos/eliminar/{{idGenero}}",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 46: Eliminar género de pruebas negativas. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/generos/eliminar/{{idGenero}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 46: Eliminar género de pruebas negativas. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Género eliminado exitosamente\",\n  \"datos\": {\n    \"_id\": \"6ae196d7f7ec6f62e9ea9578\",\n    \"nombre\": \"Ensayo\",\n    \"descripcion\": \"\",\n    \"fechaCreacion\": \"2026-10-28T06:31:51.104Z\",\n    \"__v\": 0,\n    \"id\": \"6ae196d7f7ec6f62e9ea9578\"\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "47. Confirmar géneros vacíos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/generos/obtenerVarios",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "Caso 47: Confirmar géneros vacíos. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/generos/obtenerVarios",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Caso 47: Confirmar géneros vacíos. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Listado obtenido exitosamente\",\n  \"datos\": []\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Sin géneros',()=>pm.expect(pm.response.json().datos).to.have.lengthOf(0));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "48. Búsqueda externa con parámetro vacío",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/servicios/libros?q=",
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "Caso 48: Búsqueda externa con parámetro vacío. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/servicios/libros?q=",
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Caso 48: Búsqueda externa con parámetro vacío. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Escribe una búsqueda de entre 1 y 200 caracteres\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "49. Detalle externo con ID inválido",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/servicios/libros/id-invalido",
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "Caso 49: Detalle externo con ID inválido. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 400",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/servicios/libros/id-invalido",
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Caso 49: Detalle externo con ID inválido. Estado esperado 400. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "400",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"mensaje\": \"Identificador de obra no válido\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400',()=>pm.response.to.have.status(400));",
+              "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "50. Buscar Pedro Páramo en Open Library REAL",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/servicios/libros?q=Pedro%20Paramo",
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "Caso 50: Buscar Pedro Páramo en Open Library REAL. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/servicios/libros?q=Pedro%20Paramo",
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Caso 50: Buscar Pedro Páramo en Open Library REAL. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"datos\": [\n    {\n      \"id\": \"OL1731119W\",\n      \"nombre\": \"Pedro Páramo\",\n      \"autor\": \"Juan Rulfo\",\n      \"anio\": 1955\n    },\n    {\n      \"id\": \"OL1731097W\",\n      \"nombre\": \"Pedro Páramo / El llano en llamas\",\n      \"autor\": \"Juan Rulfo\",\n      \"anio\": 1969\n    },\n    {\n      \"id\": \"OL17988045W\",\n      \"nombre\": \"Pedro Páramo de Juan Rulfo\",\n      \"autor\": \"Carmen Arcas Ruano\",\n      \"anio\": 1991\n    },\n    {\n      \"id\": \"OL44662792W\",\n      \"nombre\": \"Pedro Paramo\",\n      \"autor\": \"Juan Rulfo\",\n      \"anio\": 1977\n    },\n    {\n      \"id\": \"OL5150789W\",\n      \"nombre\": \"Pedro Páramo, Juan Rulfo\",\n      \"autor\": \"José Riveiro Espasandín\",\n      \"anio\": 1984\n    },\n    {\n      \"id\": \"OL2013516W\",\n      \"nombre\": \"Análisis arquetípico, mítico y simbológico de Pedro Páramo\",\n      \"autor\": \"Nicolás Emilio Alvarez\",\n      \"anio\": 1983\n    },\n    {\n      \"id\": \"OL5881193W\",\n      \"nombre\": \"Pedro Páramo de Juan Rulfo\",\n      \"autor\": \"Fabio Jurado Valencia\",\n      \"anio\": 2005\n    },\n    {\n      \"id\": \"OL13288182W\",\n      \"nombre\": \"La poesía en Pedro Páramo\",\n      \"autor\": \"Maximino Cacheiro\",\n      \"anio\": 1984\n    },\n    {\n      \"id\": \"OL9641745M\",\n      \"nombre\": \"Pedro Paramo\",\n      \"autor\": \"Autor sin registrar\",\n      \"anio\": 1993\n    },\n    {\n      \"id\": \"OL9820969M\",\n      \"nombre\": \"Pedro Paramo\",\n      \"autor\": \"Autor sin registrar\",\n      \"anio\": 2004\n    },\n    {\n      \"id\": \"OL9169256M\",\n      \"nombre\": \"Pedro Paramo\",\n      \"autor\": \"Autor sin registrar\",\n      \"anio\": 2004\n    },\n    {\n      \"id\": \"OL13592324W\",\n      \"nombre\": \"Pedro Páramo, Juan Rulfo\",\n      \"autor\": \"Gustavo Reyes\",\n      \"anio\": 2001\n    }\n  ],\n  \"total\": 12\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Datos bibliográficos reales',()=>{const r=pm.response.json();pm.expect(r.datos.length).to.be.above(0);pm.expect(r.datos[0]).to.have.all.keys('id','nombre','autor','anio');});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "51. Consultar obra en Open Library REAL",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/servicios/libros/OL1731119W",
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "Caso 51: Consultar obra en Open Library REAL. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+      },
+      "response": [
+        {
+          "name": "Ejemplo observado HTTP 200",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/servicios/libros/OL1731119W",
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Caso 51: Consultar obra en Open Library REAL. Estado esperado 200. API real; ver reporte para condiciones y propósito."
+          },
+          "status": "200",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"datos\": {\n    \"id\": \"OL1731119W\",\n    \"nombre\": \"Pedro Páramo\",\n    \"resumen\": \"Dentro de su brevedad -determinada por el rigor y la concentración expresiva-, *Pedro Páramo* sintetiza la mayor parte de los temas que han interesado -y afligido- siempre a los mexicanos: ese misterio nacional que el talento de Juan Rulfo ha sabido condensar por medio rural del sur de Jalisco -de Comala en particular, región inscrita ya en la mitología literia universal-; sus personajes muertos que \\\"evasivos, reticentes, convierten en secreto el aire mismo, y se vuelven elocuentes como consecuencia de callarse.\\\"\"\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200',()=>pm.response.to.have.status(200));",
+              "pm.test('Ficha real',()=>{const d=pm.response.json().datos;pm.expect(d.id).to.eql('OL1731119W');pm.expect(d.nombre).to.include('Pedro');});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

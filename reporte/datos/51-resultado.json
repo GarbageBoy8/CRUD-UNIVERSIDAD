@@ -1,0 +1,103 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/servicios/libros/OL1731119W",
+    "header": [
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "e2a44b8c-4d50-489d-b433-3859e380ab69",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "GET",
+    "body": ""
+  },
+  "response": {
+    "id": "cfaeda69-ed6e-48e7-b06a-6ecca31ded43",
+    "status": "OK",
+    "code": 200,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "591"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"24f-b1nC6DqIlDSUFqZCsGWu2NeFxcc\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:32:43 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 184,
+    "responseSize": 591,
+    "downloadedBytes": 591,
+    "body": "{\"datos\": {\"id\": \"OL1731119W\", \"nombre\": \"Pedro Páramo\", \"resumen\": \"Dentro de su brevedad -determinada por el rigor y la concentración expresiva-, *Pedro Páramo* sintetiza la mayor parte de los temas que han interesado -y afligido- siempre a los mexicanos: ese misterio nacional que el talento de Juan Rulfo ha sabido condensar por medio rural del sur de Jalisco -de Comala en particular, región inscrita ya en la mitología literia universal-; sus personajes muertos que \\\"evasivos, reticentes, convierten en secreto el aire mismo, y se vuelven elocuentes como consecuencia de callarse.\\\"\"}}"
+  },
+  "timestamp": "2026-10-28T06:32:43.937Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 200",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Ficha real",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

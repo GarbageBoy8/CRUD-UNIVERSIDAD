@@ -1,0 +1,103 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/libros/obtenerVarios",
+    "header": [
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "66851e73-1550-4342-aacc-d8db249d9608",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "GET",
+    "body": ""
+  },
+  "response": {
+    "id": "7a4aa5d4-5b8f-4ebc-a321-df18f8e796d8",
+    "status": "Unauthorized",
+    "code": 401,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "50"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"32-NhksMNuYrWTitsBzeJQNOPT1lPk\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:29:49 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 19,
+    "responseSize": 50,
+    "downloadedBytes": 50,
+    "body": "{\"mensaje\": \"Envía Authorization: Bearer <token>\"}"
+  },
+  "timestamp": "2026-10-28T06:29:49.254Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 401",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Respuesta JSON",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

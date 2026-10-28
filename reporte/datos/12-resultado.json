@@ -1,0 +1,118 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/libros/obtenerUno/6ae1966ff7ec6f62e9ea9577",
+    "header": [
+      {
+        "key": "Authorization",
+        "value": "Bearer [TOKEN OCULTO]",
+        "system": true
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "1bc899f9-1f8c-4054-a058-a00fb202f731",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "GET",
+    "body": "",
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "type": "any",
+          "value": "[TOKEN OCULTO]",
+          "key": "token"
+        }
+      ]
+    }
+  },
+  "response": {
+    "id": "ac656af1-ae65-4e6e-bc1d-94aadf550edf",
+    "status": "OK",
+    "code": 200,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "432"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"1b0-9T6aW2FAk6zNojw2Mk/tTQBys5I\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:30:13 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 23,
+    "responseSize": 432,
+    "downloadedBytes": 432,
+    "body": "{\"mensaje\": \"Libro obtenido exitosamente\", \"datos\": {\"_id\": \"6ae1966ff7ec6f62e9ea9577\", \"nombre\": \"Fundamentos de APIs REST\", \"autor\": \"Ana Torres\", \"genero\": {\"_id\": \"6ae19663f7ec6f62e9ea9576\", \"nombre\": \"Informática\", \"descripcion\": \"Programación, bases de datos y redes.\", \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\", \"__v\": 0, \"id\": \"6ae19663f7ec6f62e9ea9576\"}, \"ubicacion\": \"A-01\", \"ejemplares\": 3, \"fechaCreacion\": \"2026-10-28T06:30:07.404Z\", \"__v\": 0}}"
+  },
+  "timestamp": "2026-10-28T06:30:13.288Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 200",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Autor esperado",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

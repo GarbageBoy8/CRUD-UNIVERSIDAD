@@ -1,0 +1,117 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/auth/login",
+    "header": [
+      {
+        "disabled": false,
+        "description": {
+          "content": "Header: Content-Type",
+          "type": "text/plain"
+        },
+        "key": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "8c083869-c96c-4485-9091-4a279dd06516",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      },
+      {
+        "key": "Content-Length",
+        "value": "58",
+        "system": true
+      }
+    ],
+    "method": "POST",
+    "body": "{\"usuario\":\"practica\",\"contrasena\":\"[OCULTA]\"}"
+  },
+  "response": {
+    "id": "7df0516d-9f90-406a-b8c8-c6e1536b157d",
+    "status": "OK",
+    "code": 200,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "220"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"dc-d8POgsM30K6nVJlE50ZGgXZ0LGU\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:31:40 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 17,
+    "responseSize": 220,
+    "downloadedBytes": 220,
+    "body": "{\"token\": \"eyJ0eXAiOiJKV1QiLCJh... [oculto por seguridad]\", \"usuarioAutenticado\": \"practica\", \"duracion\": \"1 hora\"}"
+  },
+  "timestamp": "2026-10-28T06:31:40.950Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 200",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Token recibido",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

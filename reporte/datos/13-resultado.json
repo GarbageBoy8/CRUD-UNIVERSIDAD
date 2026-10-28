@@ -1,0 +1,132 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/libros/baja/6ae1966ff7ec6f62e9ea9577",
+    "header": [
+      {
+        "disabled": false,
+        "description": {
+          "content": "Header: Content-Type",
+          "type": "text/plain"
+        },
+        "key": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "key": "Authorization",
+        "value": "Bearer [TOKEN OCULTO]",
+        "system": true
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "da19e7a4-6045-4b73-b16a-c704af2f9a06",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      },
+      {
+        "key": "Content-Length",
+        "value": "38",
+        "system": true
+      }
+    ],
+    "method": "PUT",
+    "body": "{\"ubicacion\": \"B-02\", \"ejemplares\": 5}",
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "type": "any",
+          "value": "[TOKEN OCULTO]",
+          "key": "token"
+        }
+      ]
+    }
+  },
+  "response": {
+    "id": "c1c0222d-a945-4f78-a717-bb2d63a0c7ec",
+    "status": "OK",
+    "code": 200,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "435"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"1b3-Q+8xqQY6LTPq7tcG/VDJ6BuHD5I\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:30:16 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 26,
+    "responseSize": 435,
+    "downloadedBytes": 435,
+    "body": "{\"mensaje\": \"Libro actualizado exitosamente\", \"datos\": {\"_id\": \"6ae1966ff7ec6f62e9ea9577\", \"nombre\": \"Fundamentos de APIs REST\", \"autor\": \"Ana Torres\", \"genero\": {\"_id\": \"6ae19663f7ec6f62e9ea9576\", \"nombre\": \"Informática\", \"descripcion\": \"Programación, bases de datos y redes.\", \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\", \"__v\": 0, \"id\": \"6ae19663f7ec6f62e9ea9576\"}, \"ubicacion\": \"B-02\", \"ejemplares\": 5, \"fechaCreacion\": \"2026-10-28T06:30:07.404Z\", \"__v\": 0}}"
+  },
+  "timestamp": "2026-10-28T06:30:16.316Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 200",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Cambios guardados",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

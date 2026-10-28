@@ -1,0 +1,103 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8032/servicios/libros/OL45804W",
+    "header": [
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "8aef8047-5886-40d6-8efe-99c6ffa2dbdf",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8032",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "GET",
+    "body": ""
+  },
+  "response": {
+    "id": "48d6bd8a-4d77-4db0-8700-0418d4f293db",
+    "status": "OK",
+    "code": 200,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "116"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"74-PkAPtan0cLImmSP2GUuh4yo+Rvg\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:31:05 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 20,
+    "responseSize": 116,
+    "downloadedBytes": 116,
+    "body": "{\"datos\": {\"id\": \"OL45804W\", \"nombre\": \"Fantastic Mr. Fox\", \"resumen\": \"Esta obra no tiene una descripción disponible.\"}}"
+  },
+  "timestamp": "2026-10-28T06:31:05.961Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 200",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Descripción opcional",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

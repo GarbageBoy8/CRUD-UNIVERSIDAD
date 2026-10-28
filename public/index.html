@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#243f36">
+  <title>Lumbre · Biblioteca</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23243f36'/%3E%3Ctext x='11' y='30' font-size='30' fill='%23f7f3e9' font-family='Georgia'%3El%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <section id="login-screen" class="login-screen">
+    <div class="login-story">
+      <a class="brand" href="/">lumbre<span>BIBLIOTECA</span></a>
+      <div><p class="eyebrow">UN LUGAR PARA LAS HISTORIAS</p><h1>Cada libro,<br>un mundo<br><em>por abrir.</em></h1><p>Cuida tu colección. Conecta las ideas.<br>Dale a cada historia su lugar.</p></div>
+      <div class="spines" aria-hidden="true"><i>LITERATURA</i><i>POESÍA</i><i>CIENCIA</i><i>ENSAYO</i><i>OTROS MUNDOS</i></div>
+    </div>
+    <div class="login-panel">
+      <form id="login-form" class="login-form">
+        <p class="eyebrow">TU ESPACIO DE BIBLIOTECA</p><h2>Qué bueno verte.</h2><p>Inicia sesión para organizar tu catálogo.</p>
+        <label>Usuario<input name="usuario" autocomplete="username" required placeholder="Tu usuario"></label>
+        <label>Contraseña<input name="contrasena" type="password" autocomplete="current-password" required placeholder="Tu contraseña"></label>
+        <p id="login-error" class="error" role="alert"></p>
+        <button class="primary" type="submit">Entrar a la biblioteca <span aria-hidden="true">↗</span></button>
+        <small>Un catálogo ordenado. Un universo de posibilidades.</small>
+      </form>
+    </div>
+  </section>
+
+  <div id="workspace" class="workspace" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="/">lumbre<span>BIBLIOTECA</span></a>
+      <p class="nav-label">MI BIBLIOTECA</p>
+      <nav aria-label="Navegación principal">
+        <button data-view="catalogo" class="nav-item active" aria-current="page"><span aria-hidden="true">▤</span> Catálogo <span id="nav-count" class="nav-count">0</span></button>
+        <button data-view="generos" class="nav-item"><span aria-hidden="true">▦</span> Géneros</button>
+        <button data-view="descubrir" class="nav-item"><span aria-hidden="true">✧</span> Descubrir</button>
+      </nav>
+      <div class="sidebar-note"><span aria-hidden="true">✳</span><p>Las buenas historias<br>merecen un lugar.</p><small>Haz espacio para la próxima.</small></div>
+      <div class="account"><div class="avatar" aria-hidden="true">L</div><div><strong id="account-name">Biblioteca</strong><small>Gestión de catálogo</small></div><button id="logout" aria-label="Cerrar sesión" title="Cerrar sesión">↪</button></div>
+    </aside>
+    <main>
+      <header class="topbar"><span>Mi biblioteca <span aria-hidden="true">/</span> <strong id="breadcrumb">Catálogo</strong></span><span class="edition">LUMBRE · UN LIBRO A LA VEZ</span></header>
+      <div class="content">
+        <div class="page-heading"><div><p class="eyebrow">EL ORDEN TAMBIÉN INSPIRA</p><h1 id="page-title">Tu próxima historia<br>empieza <em>aquí.</em></h1><p id="page-description">Todos tus libros, cada uno en su lugar.</p></div><button id="add-button" class="primary">+ Añadir libro</button></div>
+        <div id="notice" class="notice" role="status" hidden></div>
+        <div id="load-error" class="load-error" role="alert" hidden><p id="load-error-text"></p><button id="retry" class="secondary">Volver a intentar</button></div>
+
+        <section id="catalogo-view" aria-label="Catálogo de libros">
+          <div class="stats"><div><span>Títulos en catálogo</span><strong id="stat-books">—</strong><small>Historias por descubrir</small></div><div><span>Ejemplares</span><strong id="stat-copies">—</strong><small>En tu colección</small></div><div><span>Géneros literarios</span><strong id="stat-genres">—</strong><small>Diferentes formas de mirar</small></div></div>
+          <div class="section-heading"><h2>La colección <span id="result-count"></span></h2><span>Hecha de grandes historias.</span></div>
+          <div class="filters"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" aria-label="Buscar título o autor" placeholder="Busca un título o un autor..."></label><label><span class="sr-only">Filtrar por género</span><select id="genre-filter"><option value="">Todos los géneros</option></select></label></div>
+          <div class="table-wrap"><table><thead><tr><th scope="col">LIBRO / AUTOR</th><th scope="col">GÉNERO</th><th scope="col">ESTANTE</th><th scope="col">EJEMPLARES</th><th scope="col"><span class="sr-only">Acciones</span></th></tr></thead><tbody id="book-list"></tbody></table></div>
+          <div id="empty-books" class="empty" hidden><span aria-hidden="true">▤</span><h3 id="empty-title">Una colección por comenzar.</h3><p id="empty-description">Añade un género y registra tu primer libro.</p></div>
+        </section>
+        <section id="generos-view" hidden aria-label="Géneros literarios"><div id="genre-list" class="genre-grid"></div><div id="empty-genres" class="empty" hidden><h3>Cada historia tiene su lugar.</h3><p>Crea el primer género para organizar tus libros.</p></div></section>
+        <section id="descubrir-view" hidden aria-label="Descubrir libros">
+          <div class="discovery-intro"><p class="eyebrow">MÁS ALLÁ DE TUS ESTANTES</p><h2>Siempre hay algo<br>nuevo por leer.</h2><p>Explora títulos y autores en Open Library.<br>Estas obras no forman parte de tu catálogo.</p></div>
+          <form id="discovery-form" class="filters"><label class="search"><input name="q" aria-label="Buscar en Open Library" placeholder="Un título, un autor, una idea…" maxlength="200" required></label><button class="primary">Buscar libros</button></form>
+          <p id="discovery-status" role="status">Escribe algo para comenzar a explorar.</p><div id="discovery-list" class="genre-grid"></div>
+        </section>
+        <footer><span>lumbre<span class="footer-dot">.</span></span><small>Un espacio para los libros y quienes los cuidan.</small></footer>
+      </div>
+    </main>
+  </div>
+
+  <dialog id="editor" aria-labelledby="editor-title">
+    <form id="editor-form"><div class="dialog-heading"><div><p class="eyebrow">DALE UN LUGAR</p><h2 id="editor-title">Añadir libro</h2></div><button type="button" data-close="editor" class="icon-button" aria-label="Cerrar formulario">×</button></div>
+      <label id="name-label">Título<input name="nombre" required maxlength="180"></label>
+      <div id="book-fields"><label>Autor<input name="autor" maxlength="140"></label><label>Género<select name="genero"></select></label><div class="form-row"><label>Estante<input name="ubicacion" maxlength="80" placeholder="Ej. A-01"></label><label>Ejemplares<input name="ejemplares" type="number" min="0" step="1" value="1"></label></div></div>
+      <label id="description-label" hidden>Descripción<textarea name="descripcion" rows="3" maxlength="500"></textarea></label>
+      <p id="editor-error" class="error" role="alert"></p>
+      <div class="dialog-actions"><button type="button" data-close="editor" class="secondary">Cancelar</button><button id="save-button" type="submit" class="primary">Guardar libro</button></div>
+    </form>
+  </dialog>
+  <dialog id="details" aria-labelledby="details-title"><div class="dialog-heading"><p class="eyebrow">ENTRE PÁGINAS</p><button data-close="details" class="icon-button" aria-label="Cerrar detalle">×</button></div><h2 id="details-title"></h2><p id="details-text" class="details-text"></p><div class="dialog-actions"><button data-close="details" class="secondary">Cerrar</button></div></dialog>
+  <dialog id="delete-dialog" aria-labelledby="delete-title"><h2 id="delete-title">Eliminar del catálogo</h2><p id="delete-text"></p><p id="delete-error" class="error" role="alert"></p><div class="dialog-actions"><button data-close="delete-dialog" class="secondary">Cancelar</button><button id="confirm-delete" class="danger">Eliminar</button></div></dialog>
+</body>
+</html>

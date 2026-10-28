@@ -1,0 +1,103 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/servicios/libros?q=Pedro%20Paramo",
+    "header": [
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "8a4792e2-af48-4fd9-8a38-925345dbcec4",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "GET",
+    "body": ""
+  },
+  "response": {
+    "id": "a89612fa-8263-4ce1-a879-75c707698671",
+    "status": "OK",
+    "code": 200,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "1189"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"4a5-A6f36k4N2Vthui5FtzT4j0ZRyFw\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:32:41 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 493,
+    "responseSize": 1189,
+    "downloadedBytes": 1189,
+    "body": "{\"datos\": [{\"id\": \"OL1731119W\", \"nombre\": \"Pedro Páramo\", \"autor\": \"Juan Rulfo\", \"anio\": 1955}, {\"id\": \"OL1731097W\", \"nombre\": \"Pedro Páramo / El llano en llamas\", \"autor\": \"Juan Rulfo\", \"anio\": 1969}, {\"id\": \"OL17988045W\", \"nombre\": \"Pedro Páramo de Juan Rulfo\", \"autor\": \"Carmen Arcas Ruano\", \"anio\": 1991}, {\"id\": \"OL44662792W\", \"nombre\": \"Pedro Paramo\", \"autor\": \"Juan Rulfo\", \"anio\": 1977}, {\"id\": \"OL5150789W\", \"nombre\": \"Pedro Páramo, Juan Rulfo\", \"autor\": \"José Riveiro Espasandín\", \"anio\": 1984}, {\"id\": \"OL2013516W\", \"nombre\": \"Análisis arquetípico, mítico y simbológico de Pedro Páramo\", \"autor\": \"Nicolás Emilio Alvarez\", \"anio\": 1983}, {\"id\": \"OL5881193W\", \"nombre\": \"Pedro Páramo de Juan Rulfo\", \"autor\": \"Fabio Jurado Valencia\", \"anio\": 2005}, {\"id\": \"OL13288182W\", \"nombre\": \"La poesía en Pedro Páramo\", \"autor\": \"Maximino Cacheiro\", \"anio\": 1984}, {\"id\": \"OL9641745M\", \"nombre\": \"Pedro Paramo\", \"autor\": \"Autor sin registrar\", \"anio\": 1993}, {\"id\": \"OL9820969M\", \"nombre\": \"Pedro Paramo\", \"autor\": \"Autor sin registrar\", \"anio\": 2004}, {\"id\": \"OL9169256M\", \"nombre\": \"Pedro Paramo\", \"autor\": \"Autor sin registrar\", \"anio\": 2004}, {\"id\": \"OL13592324W\", \"nombre\": \"Pedro Páramo, Juan Rulfo\", \"autor\": \"Gustavo Reyes\", \"anio\": 2001}], \"total\": 12}"
+  },
+  "timestamp": "2026-10-28T06:32:41.250Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 200",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Datos bibliográficos reales",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

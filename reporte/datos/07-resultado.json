@@ -1,0 +1,118 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/generos/obtenerVarios",
+    "header": [
+      {
+        "key": "Authorization",
+        "value": "Bearer [TOKEN OCULTO]",
+        "system": true
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "16f768d0-8c95-4e6d-8ee5-a6daa73045a3",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "GET",
+    "body": "",
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "type": "any",
+          "value": "[TOKEN OCULTO]",
+          "key": "token"
+        }
+      ]
+    }
+  },
+  "response": {
+    "id": "72fc8fb3-dedc-4a7c-ae8e-f99a04ab4d60",
+    "status": "OK",
+    "code": 200,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "261"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"105-TFytVkBOqnvc6w9xa+uak9/luoc\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:29:58 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 42,
+    "responseSize": 261,
+    "downloadedBytes": 261,
+    "body": "{\"mensaje\": \"Listado obtenido exitosamente\", \"datos\": [{\"_id\": \"6ae19663f7ec6f62e9ea9576\", \"nombre\": \"Tecnología\", \"descripcion\": \"Libros sobre programación y sistemas.\", \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\", \"__v\": 0, \"libros\": [], \"id\": \"6ae19663f7ec6f62e9ea9576\"}]}"
+  },
+  "timestamp": "2026-10-28T06:29:58.378Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 200",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Un género registrado",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

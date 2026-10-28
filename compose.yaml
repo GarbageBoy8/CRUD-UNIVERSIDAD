@@ -1,0 +1,10 @@
+name: lumbre-biblioteca
+services:
+  mongo:
+    image: mongo:8
+    ports:
+      - "127.0.0.1:27018:27017"
+    volumes:
+      - lumbre-data:/data/db
+volumes:
+  lumbre-data:

@@ -1,0 +1,337 @@
+No authorization data found. Please use the `postman login` command.
+Refer:https://learning.postman.com/docs/postman-cli/postman-cli-options/#postman-login
+
+Running your collection...
+postman
+
+Lumbre — Entrega SDD — 51 pruebas
+
+Root 01. Consultar los recursos de la API
+
+  GET http://127.0.0.1:8031/api [200 OK, 587 B, 18 ms]
+  Pass  HTTP 200
+  Pass  Respuesta JSON
+
+Root 02. Rechazar una contraseña incorrecta
+
+  POST http://127.0.0.1:8031/auth/login [401 Unauthorized, 292 B, 4 ms]
+  Pass  HTTP 401
+  Pass  Respuesta JSON
+
+Root 03. Obtener el token JWT de acceso
+
+  POST http://127.0.0.1:8031/auth/login [200 OK, 456 B, 5 ms]
+  Pass  HTTP 200
+  Pass  Token recibido
+
+Root 04. Rechazar una petición sin token
+
+  GET http://127.0.0.1:8031/libros/obtenerVarios [401 Unauthorized, 295 B, 3 ms]
+  Pass  HTTP 401
+  Pass  Respuesta JSON
+
+Root 05. Rechazar un token vencido
+
+  GET http://127.0.0.1:8031/generos/obtenerVarios [403 Forbidden, 270 B, 6 ms]
+  Pass  HTTP 403
+  Pass  Respuesta JSON
+
+Root 06. Crear un género literario
+
+  POST http://127.0.0.1:8031/generos/falta [201 Created, 486 B, 25 ms]
+  Pass  HTTP 201
+  Pass  Género guardado
+
+Root 07. Consultar todos los géneros
+
+  GET http://127.0.0.1:8031/generos/obtenerVarios [200 OK, 498 B, 10 ms]
+  Pass  HTTP 200
+  Pass  Un género registrado
+
+Root 08. Consultar un género por ID
+
+  GET http://127.0.0.1:8031/generos/obtenerUno/6ae1a595f7ec6f62e9ea957a [200 OK, 496 B, 9 ms]
+  Pass  HTTP 200
+  Pass  Nombre esperado
+
+Root 09. Actualizar un género
+
+  PUT http://127.0.0.1:8031/generos/baja/6ae1a595f7ec6f62e9ea957a [200 OK, 487 B, 7 ms]
+  Pass  HTTP 200
+  Pass  Nombre actualizado
+
+Root 10. Crear un libro vinculado al género
+
+  POST http://127.0.0.1:8031/libros/falta [201 Created, 672 B, 11 ms]
+  Pass  HTTP 201
+  Pass  Relación poblada
+
+Root 11. Consultar el catálogo de libros
+
+  GET http://127.0.0.1:8031/libros/obtenerVarios [200 OK, 673 B, 9 ms]
+  Pass  HTTP 200
+  Pass  Un libro registrado
+
+Root 12. Consultar un libro por ID
+
+  GET http://127.0.0.1:8031/libros/obtenerUno/6ae1a595f7ec6f62e9ea957b [200 OK, 669 B, 5 ms]
+  Pass  HTTP 200
+  Pass  Autor esperado
+
+Root 13. Actualizar estante y ejemplares
+
+  PUT http://127.0.0.1:8031/libros/baja/6ae1a595f7ec6f62e9ea957b [200 OK, 672 B, 8 ms]
+  Pass  HTTP 200
+  Pass  Cambios guardados
+
+Root 14. Proteger un género con libros asociados
+
+  DELETE http://127.0.0.1:8031/generos/eliminar/6ae1a595f7ec6f62e9ea957a [400 Bad Request, 325 B, 16 ms]
+  Pass  HTTP 400
+  Pass  Explica la referencia
+
+Root 15. Rechazar ejemplares negativos
+
+  PUT http://127.0.0.1:8031/libros/baja/6ae1a595f7ec6f62e9ea957b [400 Bad Request, 304 B, 5 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 16. Rechazar un ID con formato inválido
+
+  GET http://127.0.0.1:8031/libros/obtenerUno/id-invalido [400 Bad Request, 303 B, 3 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 17. Eliminar un libro
+
+  DELETE http://127.0.0.1:8031/libros/eliminar/6ae1a595f7ec6f62e9ea957b [200 OK, 500 B, 5 ms]
+  Pass  HTTP 200
+  Pass  Devuelve el registro eliminado
+
+Root 18. Comprobar que el libro ya no existe
+
+  GET http://127.0.0.1:8031/libros/obtenerUno/6ae1a595f7ec6f62e9ea957b [404 Not Found, 299 B, 4 ms]
+  Pass  HTTP 404
+  Pass  Respuesta JSON
+
+Root 19. Eliminar el género sin libros asociados
+
+  DELETE http://127.0.0.1:8031/generos/eliminar/6ae1a595f7ec6f62e9ea957a [200 OK, 485 B, 7 ms]
+  Pass  HTTP 200
+  Pass  Respuesta JSON
+
+Root 20. Comprobar el catálogo vacío
+
+  GET http://127.0.0.1:8031/libros/obtenerVarios [200 OK, 289 B, 5 ms]
+  Pass  HTTP 200
+  Pass  No quedan libros
+
+Root 21. Comprobar la eliminación del género
+
+  GET http://127.0.0.1:8031/generos/obtenerUno/6ae1a595f7ec6f62e9ea957a [404 Not Found, 301 B, 3 ms]
+  Pass  HTTP 404
+  Pass  Respuesta JSON
+
+Root 22. Buscar obras: Open Library SIMULADO
+
+  GET http://127.0.0.1:8032/servicios/libros?q=fox [200 OK, 337 B, 39 ms]
+  Pass  HTTP 200
+  Pass  Obra adaptada
+
+Root 23. Consultar ficha: proveedor SIMULADO
+
+  GET http://127.0.0.1:8032/servicios/libros/OL45804W [200 OK, 352 B, 11 ms]
+  Pass  HTTP 200
+  Pass  Descripción opcional
+
+Root 24. Obra inexistente: proveedor SIMULADO
+
+  GET http://127.0.0.1:8032/servicios/libros/OL999999W [404 Not Found, 274 B, 18 ms]
+  Pass  HTTP 404
+  Pass  Respuesta JSON
+
+Root 25. Falla del proveedor: respuesta 502
+
+  GET http://127.0.0.1:8032/servicios/libros?q=upstream-error [502 Bad Gateway, 323 B, 10 ms]
+  Pass  HTTP 502
+  Pass  Error controlado
+
+Root 26. Renovar acceso para pruebas negativas
+
+  POST http://127.0.0.1:8031/auth/login [200 OK, 456 B, 3 ms]
+  Pass  HTTP 200
+  Pass  Token recibido
+
+Root 27. Login sin campos requeridos
+
+  POST http://127.0.0.1:8031/auth/login [400 Bad Request, 290 B, 4 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 28. Token inválido en consulta general
+
+  GET http://127.0.0.1:8031/generos/obtenerVarios [401 Unauthorized, 274 B, 3 ms]
+  Pass  HTTP 401
+  Pass  Respuesta JSON
+
+Root 29. Alta de género sin nombre
+
+  POST http://127.0.0.1:8031/generos/falta [400 Bad Request, 298 B, 12 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 30. Crear género para validar conflictos
+
+  POST http://127.0.0.1:8031/generos/falta [201 Created, 443 B, 21 ms]
+  Pass  HTTP 201
+  Pass  Nombre guardado
+
+Root 31. Alta de género duplicado
+
+  POST http://127.0.0.1:8031/generos/falta [400 Bad Request, 278 B, 5 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 32. Cambio de género con nombre vacío
+
+  PUT http://127.0.0.1:8031/generos/baja/6ae1a596f7ec6f62e9ea957c [400 Bad Request, 298 B, 15 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 33. Crear segundo género
+
+  POST http://127.0.0.1:8031/generos/falta [201 Created, 445 B, 17 ms]
+  Pass  HTTP 201
+  Pass  Respuesta JSON
+
+Root 34. Renombrado con nombre duplicado
+
+  PUT http://127.0.0.1:8031/generos/baja/6ae1a596f7ec6f62e9ea957d [409 Conflict, 290 B, 32 ms]
+  Pass  HTTP 409
+  Pass  Respuesta JSON
+
+Root 35. Consulta de género con ID inválido
+
+  GET http://127.0.0.1:8031/generos/obtenerUno/invalido [400 Bad Request, 303 B, 2 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 36. Cambio de género inexistente
+
+  PUT http://127.0.0.1:8031/generos/baja/000000000000000000000000 [404 Not Found, 301 B, 4 ms]
+  Pass  HTTP 404
+  Pass  Respuesta JSON
+
+Root 37. Baja de género inexistente
+
+  DELETE http://127.0.0.1:8031/generos/eliminar/000000000000000000000000 [404 Not Found, 301 B, 9 ms]
+  Pass  HTTP 404
+  Pass  Respuesta JSON
+
+Root 38. Alta de libro sin autor
+
+  POST http://127.0.0.1:8031/libros/falta [400 Bad Request, 297 B, 12 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 39. Alta de libro con género inexistente
+
+  POST http://127.0.0.1:8031/libros/falta [400 Bad Request, 312 B, 5 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 40. Alta de libro con ejemplares fraccionarios
+
+  POST http://127.0.0.1:8031/libros/falta [400 Bad Request, 304 B, 10 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 41. Cambio de libro inexistente
+
+  PUT http://127.0.0.1:8031/libros/baja/000000000000000000000000 [404 Not Found, 299 B, 5 ms]
+  Pass  HTTP 404
+  Pass  Respuesta JSON
+
+Root 42. Cambio de libro con campos no permitidos
+
+  PUT http://127.0.0.1:8031/libros/baja/000000000000000000000000 [400 Bad Request, 315 B, 11 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 43. Baja de libro inexistente
+
+  DELETE http://127.0.0.1:8031/libros/eliminar/000000000000000000000000 [404 Not Found, 299 B, 14 ms]
+  Pass  HTTP 404
+  Pass  Respuesta JSON
+
+Root 44. Baja de libro con ID inválido
+
+  DELETE http://127.0.0.1:8031/libros/eliminar/invalido [400 Bad Request, 303 B, 5 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 45. Eliminar género de control
+
+  DELETE http://127.0.0.1:8031/generos/eliminar/6ae1a596f7ec6f62e9ea957d [200 OK, 443 B, 17 ms]
+  Pass  HTTP 200
+  Pass  Respuesta JSON
+
+Root 46. Eliminar género de pruebas negativas
+
+  DELETE http://127.0.0.1:8031/generos/eliminar/6ae1a596f7ec6f62e9ea957c [200 OK, 441 B, 22 ms]
+  Pass  HTTP 200
+  Pass  Respuesta JSON
+
+Root 47. Confirmar géneros vacíos
+
+  GET http://127.0.0.1:8031/generos/obtenerVarios [200 OK, 289 B, 10 ms]
+  Pass  HTTP 200
+  Pass  Sin géneros
+
+Root 48. Búsqueda externa con parámetro vacío
+
+  GET http://127.0.0.1:8031/servicios/libros?q= [400 Bad Request, 307 B, 8 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 49. Detalle externo con ID inválido
+
+  GET http://127.0.0.1:8031/servicios/libros/id-invalido [400 Bad Request, 290 B, 9 ms]
+  Pass  HTTP 400
+  Pass  Respuesta JSON
+
+Root 50. Buscar Pedro Páramo en Open Library REAL
+
+  GET http://127.0.0.1:8031/servicios/libros?q=Pedro%20Paramo [200 OK, 1.39 KB, 460 ms]
+  Pass  HTTP 200
+  Pass  Datos bibliográficos reales
+
+Root 51. Consultar obra en Open Library REAL
+
+  GET http://127.0.0.1:8031/servicios/libros/OL1731119W [200 OK, 828 B, 233 ms]
+  Pass  HTTP 200
+  Pass  Ficha real
+
+----------------------------------------------------------------------
+|                         |            executed |             failed |
+--------------------------+---------------------+---------------------
+|              iterations |                   1 |                  0 |
+--------------------------+---------------------+---------------------
+|                requests |                  51 |                  0 |
+--------------------------+---------------------+---------------------
+|            test-scripts |                  51 |                  0 |
+--------------------------+---------------------+---------------------
+|      prerequest-scripts |                   0 |                  0 |
+--------------------------+---------------------+---------------------
+|              assertions |                 102 |                  0 |
+----------------------------------------------------------------------
+| total run duration: 2.3 s                                          |
+----------------------------------------------------------------------
+| total data received: 8.3 KB (approx)                               |
+----------------------------------------------------------------------
+| average response time: 23 ms [min: 2 ms, max: 460 ms, s.d.: 69 ms] |
+----------------------------------------------------------------------
+Postman credentials are required for publishing run details to Postman cloud.
+Please specify it by using the `postman login` command
+
+Exit code: 0

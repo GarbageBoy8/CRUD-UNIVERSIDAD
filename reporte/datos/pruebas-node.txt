@@ -1,0 +1,17 @@
+npm notice run lumbre-biblioteca@1.0.0 test
+npm notice run node --test
+✔ autenticación: exige credenciales, protege rutas y no incluye contraseña en JWT (179.857842ms)
+(node:55994) [MONGOOSE] Warning: mongoose: the `new` option for `findOneAndUpdate()` and `findOneAndReplace()` is deprecated. Use `returnDocument: 'after'` instead.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:55994) [MONGOOSE] Warning: mongoose: the `new` option for `findOneAndUpdate()` and `findOneAndReplace()` is deprecated. Use `returnDocument: 'after'` instead.
+✔ CRUD completo, relación 1:N y validaciones de libros y géneros (171.371554ms)
+✔ la interfaz se sirve y las búsquedas externas rechazan entradas inválidas (19.02345ms)
+✔ Axios consulta Open Library a través de la simulación y maneja 404/503 (484.085768ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 921.434004

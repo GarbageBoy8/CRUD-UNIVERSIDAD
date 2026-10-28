@@ -1,0 +1,103 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/api",
+    "header": [
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "f21141a5-5327-4dc4-aef6-b42cf64afa5c",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "GET",
+    "body": ""
+  },
+  "response": {
+    "id": "18580564-4bb7-4ee5-9a1a-389b03b8867c",
+    "status": "OK",
+    "code": 200,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "350"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"15e-Ayo0fpI9ApPpPlCSPR4tqTEAJzc\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:29:40 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 26,
+    "responseSize": 350,
+    "downloadedBytes": 350,
+    "body": "{\"sistema\": \"Lumbre · Biblioteca\", \"relacion\": \"Un género tiene muchos libros\", \"auth\": \"POST /auth/login { usuario, contrasena }\", \"recursos\": [\"/libros\", \"/generos\"], \"operaciones\": [\"POST /falta\", \"GET /obtenerVarios\", \"GET /obtenerUno/:id\", \"PUT /baja/:id\", \"DELETE /eliminar/:id\"], \"servicios\": [\"GET /servicios/libros?q=termino\", \"GET /servicios/libros/:id\"]}"
+  },
+  "timestamp": "2026-10-28T06:29:40.399Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 200",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Respuesta JSON",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

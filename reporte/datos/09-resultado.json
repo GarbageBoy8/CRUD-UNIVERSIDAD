@@ -1,0 +1,132 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/generos/baja/6ae19663f7ec6f62e9ea9576",
+    "header": [
+      {
+        "disabled": false,
+        "description": {
+          "content": "Header: Content-Type",
+          "type": "text/plain"
+        },
+        "key": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "key": "Authorization",
+        "value": "Bearer [TOKEN OCULTO]",
+        "system": true
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "42371483-fba3-403f-b195-23e1e55d8f2d",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      },
+      {
+        "key": "Content-Length",
+        "value": "83",
+        "system": true
+      }
+    ],
+    "method": "PUT",
+    "body": "{\"nombre\": \"Informática\", \"descripcion\": \"Programación, bases de datos y redes.\"}",
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "type": "any",
+          "value": "[TOKEN OCULTO]",
+          "key": "token"
+        }
+      ]
+    }
+  },
+  "response": {
+    "id": "551b6145-5237-4215-8a35-0a487fb042df",
+    "status": "OK",
+    "code": 200,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "251"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"fb-Ptmijfj80VO7OlFc0bUm5NAZ04c\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:30:04 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 37,
+    "responseSize": 251,
+    "downloadedBytes": 251,
+    "body": "{\"mensaje\": \"Género actualizado exitosamente\", \"datos\": {\"_id\": \"6ae19663f7ec6f62e9ea9576\", \"nombre\": \"Informática\", \"descripcion\": \"Programación, bases de datos y redes.\", \"fechaCreacion\": \"2026-10-28T06:29:55.350Z\", \"__v\": 0, \"id\": \"6ae19663f7ec6f62e9ea9576\"}}"
+  },
+  "timestamp": "2026-10-28T06:30:04.486Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 200",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Nombre actualizado",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

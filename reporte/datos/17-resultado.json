@@ -1,0 +1,118 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/libros/eliminar/6ae1966ff7ec6f62e9ea9577",
+    "header": [
+      {
+        "key": "Authorization",
+        "value": "Bearer [TOKEN OCULTO]",
+        "system": true
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "32c6bc06-b5b6-4ca4-a4d6-d6060bd5ba3e",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "DELETE",
+    "body": "",
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "type": "any",
+          "value": "[TOKEN OCULTO]",
+          "key": "token"
+        }
+      ]
+    }
+  },
+  "response": {
+    "id": "ab336d57-14ea-48f6-8805-85a8c264f08b",
+    "status": "OK",
+    "code": 200,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "263"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"107-QTiL9dSrZqxrVH3DFxEUj0XL+gU\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:30:27 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 23,
+    "responseSize": 263,
+    "downloadedBytes": 263,
+    "body": "{\"mensaje\": \"Libro eliminado exitosamente\", \"datos\": {\"_id\": \"6ae1966ff7ec6f62e9ea9577\", \"nombre\": \"Fundamentos de APIs REST\", \"autor\": \"Ana Torres\", \"genero\": \"6ae19663f7ec6f62e9ea9576\", \"ubicacion\": \"B-02\", \"ejemplares\": 5, \"fechaCreacion\": \"2026-10-28T06:30:07.404Z\", \"__v\": 0}}"
+  },
+  "timestamp": "2026-10-28T06:30:28.026Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 200",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Devuelve el registro eliminado",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

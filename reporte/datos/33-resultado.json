@@ -1,0 +1,132 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8031/generos/falta",
+    "header": [
+      {
+        "disabled": false,
+        "description": {
+          "content": "Header: Content-Type",
+          "type": "text/plain"
+        },
+        "key": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "key": "Authorization",
+        "value": "Bearer [TOKEN OCULTO]",
+        "system": true
+      },
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "63115373-e784-4ccc-a978-df56ee96eefe",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8031",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      },
+      {
+        "key": "Content-Length",
+        "value": "22",
+        "system": true
+      }
+    ],
+    "method": "POST",
+    "body": "{\"nombre\": \"Historia\"}",
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "type": "any",
+          "value": "[TOKEN OCULTO]",
+          "key": "token"
+        }
+      ]
+    }
+  },
+  "response": {
+    "id": "f6c2a298-bc49-42c0-8941-6bbadb66e276",
+    "status": "Created",
+    "code": 201,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "204"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"cc-ZctPBQtLF4cpMY9O9NpHwhzFHSk\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:31:58 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 18,
+    "responseSize": 204,
+    "downloadedBytes": 204,
+    "body": "{\"mensaje\": \"Género creado exitosamente\", \"datos\": {\"nombre\": \"Historia\", \"descripcion\": \"\", \"_id\": \"6ae196def7ec6f62e9ea9579\", \"fechaCreacion\": \"2026-10-28T06:31:58.578Z\", \"__v\": 0, \"id\": \"6ae196def7ec6f62e9ea9579\"}}"
+  },
+  "timestamp": "2026-10-28T06:31:58.610Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 201",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Respuesta JSON",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

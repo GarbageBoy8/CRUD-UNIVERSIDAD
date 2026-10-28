@@ -1,0 +1,2219 @@
+[
+  {
+    "numero": 1,
+    "titulo": "Consultar los recursos de la API",
+    "metodo": "GET",
+    "ruta": "/api",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 26,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "sistema": "Lumbre · Biblioteca",
+      "relacion": "Un género tiene muchos libros",
+      "auth": "POST /auth/login { usuario, contrasena }",
+      "recursos": [
+        "/libros",
+        "/generos"
+      ],
+      "operaciones": [
+        "POST /falta",
+        "GET /obtenerVarios",
+        "GET /obtenerUno/:id",
+        "PUT /baja/:id",
+        "DELETE /eliminar/:id"
+      ],
+      "servicios": [
+        "GET /servicios/libros?q=termino",
+        "GET /servicios/libros/:id"
+      ]
+    },
+    "peticion": null,
+    "archivo": "evidencias/01.png",
+    "timestamp": "2026-10-28T06:29:40.399Z",
+    "exit_code": 0,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 2,
+    "titulo": "Rechazar una contraseña incorrecta",
+    "metodo": "POST",
+    "ruta": "/auth/login",
+    "esperado": 401,
+    "estado": 401,
+    "duracion_ms": 26,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 401",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Usuario o contraseña incorrectos"
+    },
+    "peticion": {
+      "usuario": "practica",
+      "contrasena": "incorrecta"
+    },
+    "archivo": "evidencias/02.png",
+    "timestamp": "2026-10-28T06:29:43.406Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 3,
+    "titulo": "Obtener el token JWT de acceso",
+    "metodo": "POST",
+    "ruta": "/auth/login",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 21,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Token recibido",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "token": "eyJ0eXAiOiJKV1QiLCJh... [oculto por seguridad]",
+      "usuarioAutenticado": "practica",
+      "duracion": "1 hora"
+    },
+    "peticion": {
+      "usuario": "practica",
+      "contrasena": "[OCULTA]"
+    },
+    "archivo": "evidencias/03.png",
+    "timestamp": "2026-10-28T06:29:46.340Z",
+    "exit_code": 0,
+    "checks": "pm.test('Token recibido',()=>pm.expect(pm.response.json().token).to.be.a('string'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 4,
+    "titulo": "Rechazar una petición sin token",
+    "metodo": "GET",
+    "ruta": "/libros/obtenerVarios",
+    "esperado": 401,
+    "estado": 401,
+    "duracion_ms": 19,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 401",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Envía Authorization: Bearer <token>"
+    },
+    "peticion": null,
+    "archivo": "evidencias/04.png",
+    "timestamp": "2026-10-28T06:29:49.254Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 5,
+    "titulo": "Rechazar un token vencido",
+    "metodo": "GET",
+    "ruta": "/generos/obtenerVarios",
+    "esperado": 403,
+    "estado": 403,
+    "duracion_ms": 20,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 403",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "token expirado"
+    },
+    "peticion": null,
+    "archivo": "evidencias/05.png",
+    "timestamp": "2026-10-28T06:29:52.411Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": "expired",
+    "save": null
+  },
+  {
+    "numero": 6,
+    "titulo": "Crear un género literario",
+    "metodo": "POST",
+    "ruta": "/generos/falta",
+    "esperado": 201,
+    "estado": 201,
+    "duracion_ms": 69,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 201",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Género guardado",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Género creado exitosamente",
+      "datos": {
+        "nombre": "Tecnología",
+        "descripcion": "Libros sobre programación y sistemas.",
+        "_id": "6ae19663f7ec6f62e9ea9576",
+        "fechaCreacion": "2026-10-28T06:29:55.350Z",
+        "__v": 0,
+        "id": "6ae19663f7ec6f62e9ea9576"
+      }
+    },
+    "peticion": {
+      "nombre": "Tecnología",
+      "descripcion": "Libros sobre programación y sistemas."
+    },
+    "archivo": "evidencias/06.png",
+    "timestamp": "2026-10-28T06:29:55.408Z",
+    "exit_code": 0,
+    "checks": "pm.test('Género guardado',()=>pm.expect(pm.response.json().datos.nombre).to.eql('Tecnología'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": "genero"
+  },
+  {
+    "numero": 7,
+    "titulo": "Consultar todos los géneros",
+    "metodo": "GET",
+    "ruta": "/generos/obtenerVarios",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 42,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Un género registrado",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Listado obtenido exitosamente",
+      "datos": [
+        {
+          "_id": "6ae19663f7ec6f62e9ea9576",
+          "nombre": "Tecnología",
+          "descripcion": "Libros sobre programación y sistemas.",
+          "fechaCreacion": "2026-10-28T06:29:55.350Z",
+          "__v": 0,
+          "libros": [],
+          "id": "6ae19663f7ec6f62e9ea9576"
+        }
+      ]
+    },
+    "peticion": null,
+    "archivo": "evidencias/07.png",
+    "timestamp": "2026-10-28T06:29:58.378Z",
+    "exit_code": 0,
+    "checks": "pm.test('Un género registrado',()=>pm.expect(pm.response.json().datos).to.have.lengthOf(1));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 8,
+    "titulo": "Consultar un género por ID",
+    "metodo": "GET",
+    "ruta": "/generos/obtenerUno/6ae19663f7ec6f62e9ea9576",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 42,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Nombre esperado",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Género obtenido exitosamente",
+      "datos": {
+        "_id": "6ae19663f7ec6f62e9ea9576",
+        "nombre": "Tecnología",
+        "descripcion": "Libros sobre programación y sistemas.",
+        "fechaCreacion": "2026-10-28T06:29:55.350Z",
+        "__v": 0,
+        "libros": [],
+        "id": "6ae19663f7ec6f62e9ea9576"
+      }
+    },
+    "peticion": null,
+    "archivo": "evidencias/08.png",
+    "timestamp": "2026-10-28T06:30:01.441Z",
+    "exit_code": 0,
+    "checks": "pm.test('Nombre esperado',()=>pm.expect(pm.response.json().datos.nombre).to.eql('Tecnología'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 9,
+    "titulo": "Actualizar un género",
+    "metodo": "PUT",
+    "ruta": "/generos/baja/6ae19663f7ec6f62e9ea9576",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 37,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Nombre actualizado",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Género actualizado exitosamente",
+      "datos": {
+        "_id": "6ae19663f7ec6f62e9ea9576",
+        "nombre": "Informática",
+        "descripcion": "Programación, bases de datos y redes.",
+        "fechaCreacion": "2026-10-28T06:29:55.350Z",
+        "__v": 0,
+        "id": "6ae19663f7ec6f62e9ea9576"
+      }
+    },
+    "peticion": {
+      "nombre": "Informática",
+      "descripcion": "Programación, bases de datos y redes."
+    },
+    "archivo": "evidencias/09.png",
+    "timestamp": "2026-10-28T06:30:04.486Z",
+    "exit_code": 0,
+    "checks": "pm.test('Nombre actualizado',()=>pm.expect(pm.response.json().datos.nombre).to.eql('Informática'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 10,
+    "titulo": "Crear un libro vinculado al género",
+    "metodo": "POST",
+    "ruta": "/libros/falta",
+    "esperado": 201,
+    "estado": 201,
+    "duracion_ms": 33,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 201",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Relación poblada",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Libro creado exitosamente",
+      "datos": {
+        "nombre": "Fundamentos de APIs REST",
+        "autor": "Ana Torres",
+        "genero": {
+          "_id": "6ae19663f7ec6f62e9ea9576",
+          "nombre": "Informática",
+          "descripcion": "Programación, bases de datos y redes.",
+          "fechaCreacion": "2026-10-28T06:29:55.350Z",
+          "__v": 0,
+          "id": "6ae19663f7ec6f62e9ea9576"
+        },
+        "ubicacion": "A-01",
+        "ejemplares": 3,
+        "_id": "6ae1966ff7ec6f62e9ea9577",
+        "fechaCreacion": "2026-10-28T06:30:07.404Z",
+        "__v": 0
+      }
+    },
+    "peticion": {
+      "nombre": "Fundamentos de APIs REST",
+      "autor": "Ana Torres",
+      "genero": "6ae19663f7ec6f62e9ea9576",
+      "ubicacion": "A-01",
+      "ejemplares": 3
+    },
+    "archivo": "evidencias/10.png",
+    "timestamp": "2026-10-28T06:30:07.454Z",
+    "exit_code": 0,
+    "checks": "pm.test('Relación poblada',()=>pm.expect(pm.response.json().datos.genero.nombre).to.eql('Informática'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": "libro"
+  },
+  {
+    "numero": 11,
+    "titulo": "Consultar el catálogo de libros",
+    "metodo": "GET",
+    "ruta": "/libros/obtenerVarios",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 22,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Un libro registrado",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Listado obtenido exitosamente",
+      "datos": [
+        {
+          "_id": "6ae1966ff7ec6f62e9ea9577",
+          "nombre": "Fundamentos de APIs REST",
+          "autor": "Ana Torres",
+          "genero": {
+            "_id": "6ae19663f7ec6f62e9ea9576",
+            "nombre": "Informática",
+            "descripcion": "Programación, bases de datos y redes.",
+            "fechaCreacion": "2026-10-28T06:29:55.350Z",
+            "__v": 0,
+            "id": "6ae19663f7ec6f62e9ea9576"
+          },
+          "ubicacion": "A-01",
+          "ejemplares": 3,
+          "fechaCreacion": "2026-10-28T06:30:07.404Z",
+          "__v": 0
+        }
+      ]
+    },
+    "peticion": null,
+    "archivo": "evidencias/11.png",
+    "timestamp": "2026-10-28T06:30:10.329Z",
+    "exit_code": 0,
+    "checks": "pm.test('Un libro registrado',()=>pm.expect(pm.response.json().datos).to.have.lengthOf(1));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 12,
+    "titulo": "Consultar un libro por ID",
+    "metodo": "GET",
+    "ruta": "/libros/obtenerUno/6ae1966ff7ec6f62e9ea9577",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 23,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Autor esperado",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Libro obtenido exitosamente",
+      "datos": {
+        "_id": "6ae1966ff7ec6f62e9ea9577",
+        "nombre": "Fundamentos de APIs REST",
+        "autor": "Ana Torres",
+        "genero": {
+          "_id": "6ae19663f7ec6f62e9ea9576",
+          "nombre": "Informática",
+          "descripcion": "Programación, bases de datos y redes.",
+          "fechaCreacion": "2026-10-28T06:29:55.350Z",
+          "__v": 0,
+          "id": "6ae19663f7ec6f62e9ea9576"
+        },
+        "ubicacion": "A-01",
+        "ejemplares": 3,
+        "fechaCreacion": "2026-10-28T06:30:07.404Z",
+        "__v": 0
+      }
+    },
+    "peticion": null,
+    "archivo": "evidencias/12.png",
+    "timestamp": "2026-10-28T06:30:13.288Z",
+    "exit_code": 0,
+    "checks": "pm.test('Autor esperado',()=>pm.expect(pm.response.json().datos.autor).to.eql('Ana Torres'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 13,
+    "titulo": "Actualizar estante y ejemplares",
+    "metodo": "PUT",
+    "ruta": "/libros/baja/6ae1966ff7ec6f62e9ea9577",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 26,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Cambios guardados",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Libro actualizado exitosamente",
+      "datos": {
+        "_id": "6ae1966ff7ec6f62e9ea9577",
+        "nombre": "Fundamentos de APIs REST",
+        "autor": "Ana Torres",
+        "genero": {
+          "_id": "6ae19663f7ec6f62e9ea9576",
+          "nombre": "Informática",
+          "descripcion": "Programación, bases de datos y redes.",
+          "fechaCreacion": "2026-10-28T06:29:55.350Z",
+          "__v": 0,
+          "id": "6ae19663f7ec6f62e9ea9576"
+        },
+        "ubicacion": "B-02",
+        "ejemplares": 5,
+        "fechaCreacion": "2026-10-28T06:30:07.404Z",
+        "__v": 0
+      }
+    },
+    "peticion": {
+      "ubicacion": "B-02",
+      "ejemplares": 5
+    },
+    "archivo": "evidencias/13.png",
+    "timestamp": "2026-10-28T06:30:16.316Z",
+    "exit_code": 0,
+    "checks": "pm.test('Cambios guardados',()=>{pm.expect(pm.response.json().datos.ubicacion).to.eql('B-02');pm.expect(pm.response.json().datos.ejemplares).to.eql(5);});",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 14,
+    "titulo": "Proteger un género con libros asociados",
+    "metodo": "DELETE",
+    "ruta": "/generos/eliminar/6ae19663f7ec6f62e9ea9576",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 74,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Explica la referencia",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "No se puede eliminar el género porque tiene 1 libro(s) asociado(s)"
+    },
+    "peticion": null,
+    "archivo": "evidencias/14.png",
+    "timestamp": "2026-10-28T06:30:19.303Z",
+    "exit_code": 1,
+    "checks": "pm.test('Explica la referencia',()=>pm.expect(pm.response.json().mensaje).to.include('asociado'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 15,
+    "titulo": "Rechazar ejemplares negativos",
+    "metodo": "PUT",
+    "ruta": "/libros/baja/6ae1966ff7ec6f62e9ea9577",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 23,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Los ejemplares deben ser un entero no negativo"
+    },
+    "peticion": {
+      "ejemplares": -2
+    },
+    "archivo": "evidencias/15.png",
+    "timestamp": "2026-10-28T06:30:22.234Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 16,
+    "titulo": "Rechazar un ID con formato inválido",
+    "metodo": "GET",
+    "ruta": "/libros/obtenerUno/id-invalido",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 19,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "El ID proporcionado no es un ObjectId válido"
+    },
+    "peticion": null,
+    "archivo": "evidencias/16.png",
+    "timestamp": "2026-10-28T06:30:25.113Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 17,
+    "titulo": "Eliminar un libro",
+    "metodo": "DELETE",
+    "ruta": "/libros/eliminar/6ae1966ff7ec6f62e9ea9577",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 23,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Devuelve el registro eliminado",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Libro eliminado exitosamente",
+      "datos": {
+        "_id": "6ae1966ff7ec6f62e9ea9577",
+        "nombre": "Fundamentos de APIs REST",
+        "autor": "Ana Torres",
+        "genero": "6ae19663f7ec6f62e9ea9576",
+        "ubicacion": "B-02",
+        "ejemplares": 5,
+        "fechaCreacion": "2026-10-28T06:30:07.404Z",
+        "__v": 0
+      }
+    },
+    "peticion": null,
+    "archivo": "evidencias/17.png",
+    "timestamp": "2026-10-28T06:30:28.026Z",
+    "exit_code": 0,
+    "checks": "pm.test('Devuelve el registro eliminado',()=>pm.expect(pm.response.json().datos.nombre).to.eql('Fundamentos de APIs REST'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 18,
+    "titulo": "Comprobar que el libro ya no existe",
+    "metodo": "GET",
+    "ruta": "/libros/obtenerUno/6ae1966ff7ec6f62e9ea9577",
+    "esperado": 404,
+    "estado": 404,
+    "duracion_ms": 19,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 404",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Libro no encontrado con el ID proporcionado"
+    },
+    "peticion": null,
+    "archivo": "evidencias/18.png",
+    "timestamp": "2026-10-28T06:30:30.561Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 19,
+    "titulo": "Eliminar el género sin libros asociados",
+    "metodo": "DELETE",
+    "ruta": "/generos/eliminar/6ae19663f7ec6f62e9ea9576",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 30,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Género eliminado exitosamente",
+      "datos": {
+        "_id": "6ae19663f7ec6f62e9ea9576",
+        "nombre": "Informática",
+        "descripcion": "Programación, bases de datos y redes.",
+        "fechaCreacion": "2026-10-28T06:29:55.350Z",
+        "__v": 0,
+        "id": "6ae19663f7ec6f62e9ea9576"
+      }
+    },
+    "peticion": null,
+    "archivo": "evidencias/19.png",
+    "timestamp": "2026-10-28T06:30:33.110Z",
+    "exit_code": 0,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 20,
+    "titulo": "Comprobar el catálogo vacío",
+    "metodo": "GET",
+    "ruta": "/libros/obtenerVarios",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 21,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "No quedan libros",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Listado obtenido exitosamente",
+      "datos": []
+    },
+    "peticion": null,
+    "archivo": "evidencias/20.png",
+    "timestamp": "2026-10-28T06:30:35.632Z",
+    "exit_code": 0,
+    "checks": "pm.test('No quedan libros',()=>pm.expect(pm.response.json().datos).to.have.lengthOf(0));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 21,
+    "titulo": "Comprobar la eliminación del género",
+    "metodo": "GET",
+    "ruta": "/generos/obtenerUno/6ae19663f7ec6f62e9ea9576",
+    "esperado": 404,
+    "estado": 404,
+    "duracion_ms": 18,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 404",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Género no encontrado con el ID proporcionado"
+    },
+    "peticion": null,
+    "archivo": "evidencias/21.png",
+    "timestamp": "2026-10-28T06:30:38.155Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 22,
+    "titulo": "Buscar obras: Open Library SIMULADO",
+    "metodo": "GET",
+    "ruta": "/servicios/libros?q=fox",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 62,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Obra adaptada",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "datos": [
+        {
+          "id": "OL45804W",
+          "nombre": "Fantastic Mr. Fox",
+          "autor": "Roald Dahl",
+          "anio": 1970
+        }
+      ],
+      "total": 1
+    },
+    "peticion": null,
+    "archivo": "evidencias/22.png",
+    "timestamp": "2026-10-28T06:31:03.405Z",
+    "exit_code": 0,
+    "checks": "pm.test('Obra adaptada',()=>pm.expect(pm.response.json().datos[0].nombre).to.eql('Fantastic Mr. Fox'));",
+    "base_url": "http://127.0.0.1:8032",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 23,
+    "titulo": "Consultar ficha: proveedor SIMULADO",
+    "metodo": "GET",
+    "ruta": "/servicios/libros/OL45804W",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 20,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Descripción opcional",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "datos": {
+        "id": "OL45804W",
+        "nombre": "Fantastic Mr. Fox",
+        "resumen": "Esta obra no tiene una descripción disponible."
+      }
+    },
+    "peticion": null,
+    "archivo": "evidencias/23.png",
+    "timestamp": "2026-10-28T06:31:05.961Z",
+    "exit_code": 0,
+    "checks": "pm.test('Descripción opcional',()=>pm.expect(pm.response.json().datos.resumen).to.include('no tiene una descripción'));",
+    "base_url": "http://127.0.0.1:8032",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 24,
+    "titulo": "Obra inexistente: proveedor SIMULADO",
+    "metodo": "GET",
+    "ruta": "/servicios/libros/OL999999W",
+    "esperado": 404,
+    "estado": 404,
+    "duracion_ms": 27,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 404",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Obra no encontrada"
+    },
+    "peticion": null,
+    "archivo": "evidencias/24.png",
+    "timestamp": "2026-10-28T06:31:09.259Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8032",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 25,
+    "titulo": "Falla del proveedor: respuesta 502",
+    "metodo": "GET",
+    "ruta": "/servicios/libros?q=upstream-error",
+    "esperado": 502,
+    "estado": 502,
+    "duracion_ms": 26,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 502",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Error controlado",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Open Library no está disponible. Vuelve a intentarlo más tarde."
+    },
+    "peticion": null,
+    "archivo": "evidencias/25.png",
+    "timestamp": "2026-10-28T06:31:12.556Z",
+    "exit_code": 1,
+    "checks": "pm.test('Error controlado',()=>pm.expect(pm.response.json().mensaje).to.include('no está disponible'));",
+    "base_url": "http://127.0.0.1:8032",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 26,
+    "titulo": "Renovar acceso para pruebas negativas",
+    "metodo": "POST",
+    "ruta": "/auth/login",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 17,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Token recibido",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "token": "eyJ0eXAiOiJKV1QiLCJh... [oculto por seguridad]",
+      "usuarioAutenticado": "practica",
+      "duracion": "1 hora"
+    },
+    "peticion": {
+      "usuario": "practica",
+      "contrasena": "[OCULTA]"
+    },
+    "archivo": "evidencias/26.png",
+    "timestamp": "2026-10-28T06:31:40.950Z",
+    "exit_code": 0,
+    "checks": "pm.test('Token recibido',()=>pm.expect(pm.response.json().token).to.be.a('string'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 27,
+    "titulo": "Login sin campos requeridos",
+    "metodo": "POST",
+    "ruta": "/auth/login",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 16,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Escribe tu usuario y contraseña"
+    },
+    "peticion": {},
+    "archivo": "evidencias/27.png",
+    "timestamp": "2026-10-28T06:31:43.533Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 28,
+    "titulo": "Token inválido en consulta general",
+    "metodo": "GET",
+    "ruta": "/generos/obtenerVarios",
+    "esperado": 401,
+    "estado": 401,
+    "duracion_ms": 16,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 401",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Token inválido"
+    },
+    "peticion": null,
+    "archivo": "evidencias/28.png",
+    "timestamp": "2026-10-28T06:31:46.103Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": "invalid",
+    "save": null
+  },
+  {
+    "numero": 29,
+    "titulo": "Alta de género sin nombre",
+    "metodo": "POST",
+    "ruta": "/generos/falta",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 16,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "El campo nombre debe ser texto no vacío"
+    },
+    "peticion": {
+      "descripcion": "Falta nombre"
+    },
+    "archivo": "evidencias/29.png",
+    "timestamp": "2026-10-28T06:31:48.632Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 30,
+    "titulo": "Crear género para validar conflictos",
+    "metodo": "POST",
+    "ruta": "/generos/falta",
+    "esperado": 201,
+    "estado": 201,
+    "duracion_ms": 18,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 201",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Nombre guardado",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Género creado exitosamente",
+      "datos": {
+        "nombre": "Ensayo",
+        "descripcion": "",
+        "_id": "6ae196d7f7ec6f62e9ea9578",
+        "fechaCreacion": "2026-10-28T06:31:51.104Z",
+        "__v": 0,
+        "id": "6ae196d7f7ec6f62e9ea9578"
+      }
+    },
+    "peticion": {
+      "nombre": "Ensayo"
+    },
+    "archivo": "evidencias/30.png",
+    "timestamp": "2026-10-28T06:31:51.137Z",
+    "exit_code": 0,
+    "checks": "pm.test('Nombre guardado',()=>pm.expect(pm.response.json().datos.nombre).to.eql('Ensayo'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": "genero"
+  },
+  {
+    "numero": 31,
+    "titulo": "Alta de género duplicado",
+    "metodo": "POST",
+    "ruta": "/generos/falta",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 17,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "El género ya existe"
+    },
+    "peticion": {
+      "nombre": "Ensayo"
+    },
+    "archivo": "evidencias/31.png",
+    "timestamp": "2026-10-28T06:31:53.678Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 32,
+    "titulo": "Cambio de género con nombre vacío",
+    "metodo": "PUT",
+    "ruta": "/generos/baja/6ae196d7f7ec6f62e9ea9578",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 16,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "El campo nombre debe ser texto no vacío"
+    },
+    "peticion": {
+      "nombre": ""
+    },
+    "archivo": "evidencias/32.png",
+    "timestamp": "2026-10-28T06:31:56.124Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 33,
+    "titulo": "Crear segundo género",
+    "metodo": "POST",
+    "ruta": "/generos/falta",
+    "esperado": 201,
+    "estado": 201,
+    "duracion_ms": 18,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 201",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Género creado exitosamente",
+      "datos": {
+        "nombre": "Historia",
+        "descripcion": "",
+        "_id": "6ae196def7ec6f62e9ea9579",
+        "fechaCreacion": "2026-10-28T06:31:58.578Z",
+        "__v": 0,
+        "id": "6ae196def7ec6f62e9ea9579"
+      }
+    },
+    "peticion": {
+      "nombre": "Historia"
+    },
+    "archivo": "evidencias/33.png",
+    "timestamp": "2026-10-28T06:31:58.610Z",
+    "exit_code": 0,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": "otro_genero"
+  },
+  {
+    "numero": 34,
+    "titulo": "Renombrado con nombre duplicado",
+    "metodo": "PUT",
+    "ruta": "/generos/baja/6ae196def7ec6f62e9ea9579",
+    "esperado": 409,
+    "estado": 409,
+    "duracion_ms": 33,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 409",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Ya existe un género con ese nombre"
+    },
+    "peticion": {
+      "nombre": "Ensayo"
+    },
+    "archivo": "evidencias/34.png",
+    "timestamp": "2026-10-28T06:32:01.145Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 35,
+    "titulo": "Consulta de género con ID inválido",
+    "metodo": "GET",
+    "ruta": "/generos/obtenerUno/invalido",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 16,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "El ID proporcionado no es un ObjectId válido"
+    },
+    "peticion": null,
+    "archivo": "evidencias/35.png",
+    "timestamp": "2026-10-28T06:32:03.618Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 36,
+    "titulo": "Cambio de género inexistente",
+    "metodo": "PUT",
+    "ruta": "/generos/baja/000000000000000000000000",
+    "esperado": 404,
+    "estado": 404,
+    "duracion_ms": 18,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 404",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Género no encontrado con el ID proporcionado"
+    },
+    "peticion": {
+      "nombre": "No existe"
+    },
+    "archivo": "evidencias/36.png",
+    "timestamp": "2026-10-28T06:32:06.094Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 37,
+    "titulo": "Baja de género inexistente",
+    "metodo": "DELETE",
+    "ruta": "/generos/eliminar/000000000000000000000000",
+    "esperado": 404,
+    "estado": 404,
+    "duracion_ms": 18,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 404",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Género no encontrado con el ID proporcionado"
+    },
+    "peticion": null,
+    "archivo": "evidencias/37.png",
+    "timestamp": "2026-10-28T06:32:08.558Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 38,
+    "titulo": "Alta de libro sin autor",
+    "metodo": "POST",
+    "ruta": "/libros/falta",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 16,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "El campo autor debe ser texto no vacío"
+    },
+    "peticion": {
+      "nombre": "Ensayos",
+      "genero": "6ae196d7f7ec6f62e9ea9578",
+      "ubicacion": "C-01",
+      "ejemplares": 1
+    },
+    "archivo": "evidencias/38.png",
+    "timestamp": "2026-10-28T06:32:11.079Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 39,
+    "titulo": "Alta de libro con género inexistente",
+    "metodo": "POST",
+    "ruta": "/libros/falta",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 17,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "El género indicado no existe; crea primero el género"
+    },
+    "peticion": {
+      "nombre": "Ensayos",
+      "autor": "Autor de prueba",
+      "genero": "000000000000000000000000",
+      "ubicacion": "C-01",
+      "ejemplares": 1
+    },
+    "archivo": "evidencias/39.png",
+    "timestamp": "2026-10-28T06:32:13.573Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 40,
+    "titulo": "Alta de libro con ejemplares fraccionarios",
+    "metodo": "POST",
+    "ruta": "/libros/falta",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 16,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Los ejemplares deben ser un entero no negativo"
+    },
+    "peticion": {
+      "nombre": "Ensayos",
+      "autor": "Autor de prueba",
+      "genero": "6ae196d7f7ec6f62e9ea9578",
+      "ubicacion": "C-01",
+      "ejemplares": 1.5
+    },
+    "archivo": "evidencias/40.png",
+    "timestamp": "2026-10-28T06:32:16.047Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 41,
+    "titulo": "Cambio de libro inexistente",
+    "metodo": "PUT",
+    "ruta": "/libros/baja/000000000000000000000000",
+    "esperado": 404,
+    "estado": 404,
+    "duracion_ms": 17,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 404",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Libro no encontrado con el ID proporcionado"
+    },
+    "peticion": {
+      "ejemplares": 2
+    },
+    "archivo": "evidencias/41.png",
+    "timestamp": "2026-10-28T06:32:18.510Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 42,
+    "titulo": "Cambio de libro con campos no permitidos",
+    "metodo": "PUT",
+    "ruta": "/libros/baja/000000000000000000000000",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 16,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Envía al menos un campo editable válido para actualizar"
+    },
+    "peticion": {
+      "propietario": "otro"
+    },
+    "archivo": "evidencias/42.png",
+    "timestamp": "2026-10-28T06:32:20.982Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 43,
+    "titulo": "Baja de libro inexistente",
+    "metodo": "DELETE",
+    "ruta": "/libros/eliminar/000000000000000000000000",
+    "esperado": 404,
+    "estado": 404,
+    "duracion_ms": 17,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 404",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Libro no encontrado con el ID proporcionado"
+    },
+    "peticion": null,
+    "archivo": "evidencias/43.png",
+    "timestamp": "2026-10-28T06:32:23.450Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 44,
+    "titulo": "Baja de libro con ID inválido",
+    "metodo": "DELETE",
+    "ruta": "/libros/eliminar/invalido",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 15,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "El ID proporcionado no es un ObjectId válido"
+    },
+    "peticion": null,
+    "archivo": "evidencias/44.png",
+    "timestamp": "2026-10-28T06:32:25.910Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 45,
+    "titulo": "Eliminar género de control",
+    "metodo": "DELETE",
+    "ruta": "/generos/eliminar/6ae196def7ec6f62e9ea9579",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 18,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Género eliminado exitosamente",
+      "datos": {
+        "_id": "6ae196def7ec6f62e9ea9579",
+        "nombre": "Historia",
+        "descripcion": "",
+        "fechaCreacion": "2026-10-28T06:31:58.578Z",
+        "__v": 0,
+        "id": "6ae196def7ec6f62e9ea9579"
+      }
+    },
+    "peticion": null,
+    "archivo": "evidencias/45.png",
+    "timestamp": "2026-10-28T06:32:28.377Z",
+    "exit_code": 0,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 46,
+    "titulo": "Eliminar género de pruebas negativas",
+    "metodo": "DELETE",
+    "ruta": "/generos/eliminar/6ae196d7f7ec6f62e9ea9578",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 17,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Género eliminado exitosamente",
+      "datos": {
+        "_id": "6ae196d7f7ec6f62e9ea9578",
+        "nombre": "Ensayo",
+        "descripcion": "",
+        "fechaCreacion": "2026-10-28T06:31:51.104Z",
+        "__v": 0,
+        "id": "6ae196d7f7ec6f62e9ea9578"
+      }
+    },
+    "peticion": null,
+    "archivo": "evidencias/46.png",
+    "timestamp": "2026-10-28T06:32:30.873Z",
+    "exit_code": 0,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 47,
+    "titulo": "Confirmar géneros vacíos",
+    "metodo": "GET",
+    "ruta": "/generos/obtenerVarios",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 17,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Sin géneros",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Listado obtenido exitosamente",
+      "datos": []
+    },
+    "peticion": null,
+    "archivo": "evidencias/47.png",
+    "timestamp": "2026-10-28T06:32:33.345Z",
+    "exit_code": 0,
+    "checks": "pm.test('Sin géneros',()=>pm.expect(pm.response.json().datos).to.have.lengthOf(0));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": true,
+    "save": null
+  },
+  {
+    "numero": 48,
+    "titulo": "Búsqueda externa con parámetro vacío",
+    "metodo": "GET",
+    "ruta": "/servicios/libros?q=",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 16,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Escribe una búsqueda de entre 1 y 200 caracteres"
+    },
+    "peticion": null,
+    "archivo": "evidencias/48.png",
+    "timestamp": "2026-10-28T06:32:35.829Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 49,
+    "titulo": "Detalle externo con ID inválido",
+    "metodo": "GET",
+    "ruta": "/servicios/libros/id-invalido",
+    "esperado": 400,
+    "estado": 400,
+    "duracion_ms": 15,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 400",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Respuesta JSON",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "mensaje": "Identificador de obra no válido"
+    },
+    "peticion": null,
+    "archivo": "evidencias/49.png",
+    "timestamp": "2026-10-28T06:32:38.280Z",
+    "exit_code": 1,
+    "checks": "pm.test('Respuesta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 50,
+    "titulo": "Buscar Pedro Páramo en Open Library REAL",
+    "metodo": "GET",
+    "ruta": "/servicios/libros?q=Pedro%20Paramo",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 493,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Datos bibliográficos reales",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "datos": [
+        {
+          "id": "OL1731119W",
+          "nombre": "Pedro Páramo",
+          "autor": "Juan Rulfo",
+          "anio": 1955
+        },
+        {
+          "id": "OL1731097W",
+          "nombre": "Pedro Páramo / El llano en llamas",
+          "autor": "Juan Rulfo",
+          "anio": 1969
+        },
+        {
+          "id": "OL17988045W",
+          "nombre": "Pedro Páramo de Juan Rulfo",
+          "autor": "Carmen Arcas Ruano",
+          "anio": 1991
+        },
+        {
+          "id": "OL44662792W",
+          "nombre": "Pedro Paramo",
+          "autor": "Juan Rulfo",
+          "anio": 1977
+        },
+        {
+          "id": "OL5150789W",
+          "nombre": "Pedro Páramo, Juan Rulfo",
+          "autor": "José Riveiro Espasandín",
+          "anio": 1984
+        },
+        {
+          "id": "OL2013516W",
+          "nombre": "Análisis arquetípico, mítico y simbológico de Pedro Páramo",
+          "autor": "Nicolás Emilio Alvarez",
+          "anio": 1983
+        },
+        {
+          "id": "OL5881193W",
+          "nombre": "Pedro Páramo de Juan Rulfo",
+          "autor": "Fabio Jurado Valencia",
+          "anio": 2005
+        },
+        {
+          "id": "OL13288182W",
+          "nombre": "La poesía en Pedro Páramo",
+          "autor": "Maximino Cacheiro",
+          "anio": 1984
+        },
+        {
+          "id": "OL9641745M",
+          "nombre": "Pedro Paramo",
+          "autor": "Autor sin registrar",
+          "anio": 1993
+        },
+        {
+          "id": "OL9820969M",
+          "nombre": "Pedro Paramo",
+          "autor": "Autor sin registrar",
+          "anio": 2004
+        },
+        {
+          "id": "OL9169256M",
+          "nombre": "Pedro Paramo",
+          "autor": "Autor sin registrar",
+          "anio": 2004
+        },
+        {
+          "id": "OL13592324W",
+          "nombre": "Pedro Páramo, Juan Rulfo",
+          "autor": "Gustavo Reyes",
+          "anio": 2001
+        }
+      ],
+      "total": 12
+    },
+    "peticion": null,
+    "archivo": "evidencias/50.png",
+    "timestamp": "2026-10-28T06:32:41.250Z",
+    "exit_code": 0,
+    "checks": "pm.test('Datos bibliográficos reales',()=>{const r=pm.response.json();pm.expect(r.datos.length).to.be.above(0);pm.expect(r.datos[0]).to.have.all.keys('id','nombre','autor','anio');});",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": false,
+    "save": null
+  },
+  {
+    "numero": 51,
+    "titulo": "Consultar obra en Open Library REAL",
+    "metodo": "GET",
+    "ruta": "/servicios/libros/OL1731119W",
+    "esperado": 200,
+    "estado": 200,
+    "duracion_ms": 184,
+    "pruebas": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "results": [
+        {
+          "name": "HTTP 200",
+          "passed": true,
+          "consoleLogs": []
+        },
+        {
+          "name": "Ficha real",
+          "passed": true,
+          "consoleLogs": []
+        }
+      ]
+    },
+    "respuesta": {
+      "datos": {
+        "id": "OL1731119W",
+        "nombre": "Pedro Páramo",
+        "resumen": "Dentro de su brevedad -determinada por el rigor y la concentración expresiva-, *Pedro Páramo* sintetiza la mayor parte de los temas que han interesado -y afligido- siempre a los mexicanos: ese misterio nacional que el talento de Juan Rulfo ha sabido condensar por medio rural del sur de Jalisco -de Comala en particular, región inscrita ya en la mitología literia universal-; sus personajes muertos que \"evasivos, reticentes, convierten en secreto el aire mismo, y se vuelven elocuentes como consecuencia de callarse.\""
+      }
+    },
+    "peticion": null,
+    "archivo": "evidencias/51.png",
+    "timestamp": "2026-10-28T06:32:43.937Z",
+    "exit_code": 0,
+    "checks": "pm.test('Ficha real',()=>{const d=pm.response.json().datos;pm.expect(d.id).to.eql('OL1731119W');pm.expect(d.nombre).to.include('Pedro');});",
+    "base_url": "http://127.0.0.1:8031",
+    "auth": false,
+    "save": null
+  }
+]

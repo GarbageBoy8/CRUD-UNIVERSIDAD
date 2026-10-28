@@ -1,0 +1,103 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8032/servicios/libros?q=upstream-error",
+    "header": [
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "e7321790-04de-4714-9567-5202e607fd50",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8032",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "GET",
+    "body": ""
+  },
+  "response": {
+    "id": "d02a0196-4526-4003-99e8-1f4da2936dcb",
+    "status": "Bad Gateway",
+    "code": 502,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "79"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"4f-vowCoDkHp1xDeAx+SRUD40tzpY8\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:31:12 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 26,
+    "responseSize": 79,
+    "downloadedBytes": 79,
+    "body": "{\"mensaje\": \"Open Library no está disponible. Vuelve a intentarlo más tarde.\"}"
+  },
+  "timestamp": "2026-10-28T06:31:12.556Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 502",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Error controlado",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

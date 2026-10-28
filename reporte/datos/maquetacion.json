@@ -1,0 +1,407 @@
+[
+  {
+    "folio": 1,
+    "title": "1. ESPECIFICACIÓN Y DISEÑO SDD.",
+    "bottom_y": 182
+  },
+  {
+    "folio": 2,
+    "title": "1.1. REQUERIMIENTOS Y REGLAS DE NEGOCIO.",
+    "bottom_y": 262
+  },
+  {
+    "folio": 3,
+    "title": "1.2. ESQUEMAS Y RELACIÓN ENTRE COLECCIONES.",
+    "bottom_y": 266
+  },
+  {
+    "folio": 4,
+    "title": "2. CONTRATO COMÚN DE LA API.",
+    "bottom_y": 173
+  },
+  {
+    "folio": 5,
+    "title": "2.1. ENDPOINTS DE GÉNEROS.",
+    "bottom_y": 264
+  },
+  {
+    "folio": 6,
+    "title": "2.2. ENDPOINTS DE LIBROS.",
+    "bottom_y": 276
+  },
+  {
+    "folio": 7,
+    "title": "2.3. AUTENTICACIÓN Y CONSULTAS EXTERNAS.",
+    "bottom_y": 308
+  },
+  {
+    "folio": 8,
+    "title": "3. ARQUITECTURA POR CAPAS.",
+    "bottom_y": 241
+  },
+  {
+    "folio": 9,
+    "title": "3.1. CONTROLADOR Y SERVICIO: CÓDIGO.",
+    "bottom_y": 233
+  },
+  {
+    "folio": 10,
+    "title": "3.2. INTEGRIDAD Y OPERACIONES DE MONGOOSE.",
+    "bottom_y": 189
+  },
+  {
+    "folio": 11,
+    "title": "4. SERVICIOS Y CONSUMO DE OPEN LIBRARY.",
+    "bottom_y": 174
+  },
+  {
+    "folio": 12,
+    "title": "4.1. DETALLE, ERRORES E INTEGRACIÓN.",
+    "bottom_y": 189
+  },
+  {
+    "folio": 13,
+    "title": "5. LOGIN Y GENERACIÓN DEL JWT.",
+    "bottom_y": 248
+  },
+  {
+    "folio": 14,
+    "title": "5.1. VERIFICACIÓN Y MIDDLEWARE JWT.",
+    "bottom_y": 221
+  },
+  {
+    "folio": 15,
+    "title": "6. CONFIGURACIÓN Y EJECUCIÓN.",
+    "bottom_y": 164
+  },
+  {
+    "folio": 16,
+    "title": "6.1. DEPENDENCIAS, CONEXIÓN Y ERRORES.",
+    "bottom_y": 237
+  },
+  {
+    "folio": 17,
+    "title": "6.2. GUÍA DE ARCHIVOS Y FUNCIONES DEL CRUD.",
+    "bottom_y": 268
+  },
+  {
+    "folio": 18,
+    "title": "6.3. GUÍA DE LOS DEMÁS COMPONENTES.",
+    "bottom_y": 147
+  },
+  {
+    "folio": 19,
+    "title": "7. PREPARACIÓN DE POSTMAN.",
+    "bottom_y": 212
+  },
+  {
+    "folio": 20,
+    "title": "7.1. MÉTODO, URL, PARAMS Y SEND.",
+    "bottom_y": 190.0
+  },
+  {
+    "folio": 21,
+    "title": "7.2. BODY Y RESPUESTA DE ERROR.",
+    "bottom_y": 172.0
+  },
+  {
+    "folio": 22,
+    "title": "7.3. HEADERS Y TIPO DE CONTENIDO.",
+    "bottom_y": 172.0
+  },
+  {
+    "folio": 23,
+    "title": "7.4. AUTHORIZATION Y ASERCIONES.",
+    "bottom_y": 172.0
+  },
+  {
+    "folio": 24,
+    "title": "7.5. MÉTODO DE EVIDENCIA Y AISLAMIENTO.",
+    "bottom_y": 257
+  },
+  {
+    "folio": 25,
+    "title": "7.6. PRUEBA 01: CONSULTAR LOS RECURSOS DE LA API.",
+    "bottom_y": 62.0
+  },
+  {
+    "folio": 26,
+    "title": "7.7. PRUEBA 02: RECHAZAR UNA CONTRASEÑA INCORRECTA.",
+    "bottom_y": 98.0
+  },
+  {
+    "folio": 27,
+    "title": "7.8. PRUEBA 03: OBTENER EL TOKEN JWT DE ACCESO.",
+    "bottom_y": 80.0
+  },
+  {
+    "folio": 28,
+    "title": "7.9. PRUEBA 04: RECHAZAR UNA PETICIÓN SIN TOKEN.",
+    "bottom_y": 116.0
+  },
+  {
+    "folio": 29,
+    "title": "7.10. PRUEBA 05: RECHAZAR UN TOKEN VENCIDO.",
+    "bottom_y": 98.0
+  },
+  {
+    "folio": 30,
+    "title": "7.11. PRUEBA 06: CREAR UN GÉNERO LITERARIO.",
+    "bottom_y": 62.0
+  },
+  {
+    "folio": 31,
+    "title": "7.12. PRUEBA 07: CONSULTAR TODOS LOS GÉNEROS.",
+    "bottom_y": 98.0
+  },
+  {
+    "folio": 32,
+    "title": "7.13. PRUEBA 08: CONSULTAR UN GÉNERO POR ID.",
+    "bottom_y": 98.0
+  },
+  {
+    "folio": 33,
+    "title": "7.14. PRUEBA 09: ACTUALIZAR UN GÉNERO.",
+    "bottom_y": 62.0
+  },
+  {
+    "folio": 34,
+    "title": "7.15. PRUEBA 10: CREAR UN LIBRO VINCULADO AL GÉNERO.",
+    "bottom_y": 62.0
+  },
+  {
+    "folio": 35,
+    "title": "7.16. PRUEBA 11: CONSULTAR EL CATÁLOGO DE LIBROS.",
+    "bottom_y": 98.0
+  },
+  {
+    "folio": 36,
+    "title": "7.17. PRUEBA 12: CONSULTAR UN LIBRO POR ID.",
+    "bottom_y": 98.0
+  },
+  {
+    "folio": 37,
+    "title": "7.18. PRUEBA 13: ACTUALIZAR ESTANTE Y EJEMPLARES.",
+    "bottom_y": 80.0
+  },
+  {
+    "folio": 38,
+    "title": "7.19. PRUEBA 14: PROTEGER UN GÉNERO CON LIBROS ASOCIADOS.",
+    "bottom_y": 80.0
+  },
+  {
+    "folio": 39,
+    "title": "7.20. PRUEBA 15: RECHAZAR EJEMPLARES NEGATIVOS.",
+    "bottom_y": 98.0
+  },
+  {
+    "folio": 40,
+    "title": "7.21. PRUEBA 16: RECHAZAR UN ID CON FORMATO INVÁLIDO.",
+    "bottom_y": 80.0
+  },
+  {
+    "folio": 41,
+    "title": "7.22. PRUEBA 17: ELIMINAR UN LIBRO.",
+    "bottom_y": 98.0
+  },
+  {
+    "folio": 42,
+    "title": "7.23. PRUEBA 18: COMPROBAR QUE EL LIBRO YA NO EXISTE.",
+    "bottom_y": 80.0
+  },
+  {
+    "folio": 43,
+    "title": "7.24. PRUEBA 19: ELIMINAR EL GÉNERO SIN LIBROS ASOCIADOS.",
+    "bottom_y": 116.0
+  },
+  {
+    "folio": 44,
+    "title": "7.25. PRUEBA 20: COMPROBAR EL CATÁLOGO VACÍO.",
+    "bottom_y": 80.0
+  },
+  {
+    "folio": 45,
+    "title": "7.26. PRUEBA 21: COMPROBAR LA ELIMINACIÓN DEL GÉNERO.",
+    "bottom_y": 80.0
+  },
+  {
+    "folio": 46,
+    "title": "7.27. PRUEBA 22: BUSCAR OBRAS: OPEN LIBRARY SIMULADO.",
+    "bottom_y": 62.0
+  },
+  {
+    "folio": 47,
+    "title": "7.28. PRUEBA 23: CONSULTAR FICHA: PROVEEDOR SIMULADO.",
+    "bottom_y": 80.0
+  },
+  {
+    "folio": 48,
+    "title": "7.29. PRUEBA 24: OBRA INEXISTENTE: PROVEEDOR SIMULADO.",
+    "bottom_y": 62.0
+  },
+  {
+    "folio": 49,
+    "title": "7.30. PRUEBA 25: FALLA DEL PROVEEDOR: RESPUESTA 502.",
+    "bottom_y": 62.0
+  },
+  {
+    "folio": 50,
+    "title": "7.31. PRUEBA 26: RENOVAR ACCESO PARA PRUEBAS NEGATIVAS.",
+    "bottom_y": 98.0
+  },
+  {
+    "folio": 51,
+    "title": "7.32. PRUEBA 27: LOGIN SIN CAMPOS REQUERIDOS.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 52,
+    "title": "7.33. PRUEBA 28: TOKEN INVÁLIDO EN CONSULTA GENERAL.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 53,
+    "title": "7.34. PRUEBA 29: ALTA DE GÉNERO SIN NOMBRE.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 54,
+    "title": "7.35. PRUEBA 30: CREAR GÉNERO PARA VALIDAR CONFLICTOS.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 55,
+    "title": "7.36. PRUEBA 31: ALTA DE GÉNERO DUPLICADO.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 56,
+    "title": "7.37. PRUEBA 32: CAMBIO DE GÉNERO CON NOMBRE VACÍO.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 57,
+    "title": "7.38. PRUEBA 33: CREAR SEGUNDO GÉNERO.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 58,
+    "title": "7.39. PRUEBA 34: RENOMBRADO CON NOMBRE DUPLICADO.",
+    "bottom_y": 116.0
+  },
+  {
+    "folio": 59,
+    "title": "7.40. PRUEBA 35: CONSULTA DE GÉNERO CON ID INVÁLIDO.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 60,
+    "title": "7.41. PRUEBA 36: CAMBIO DE GÉNERO INEXISTENTE.",
+    "bottom_y": 116.0
+  },
+  {
+    "folio": 61,
+    "title": "7.42. PRUEBA 37: BAJA DE GÉNERO INEXISTENTE.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 62,
+    "title": "7.43. PRUEBA 38: ALTA DE LIBRO SIN AUTOR.",
+    "bottom_y": 116.0
+  },
+  {
+    "folio": 63,
+    "title": "7.44. PRUEBA 39: ALTA DE LIBRO CON GÉNERO INEXISTENTE.",
+    "bottom_y": 116.0
+  },
+  {
+    "folio": 64,
+    "title": "7.45. PRUEBA 40: ALTA DE LIBRO CON EJEMPLARES FRACCIONARIOS.",
+    "bottom_y": 80.0
+  },
+  {
+    "folio": 65,
+    "title": "7.46. PRUEBA 41: CAMBIO DE LIBRO INEXISTENTE.",
+    "bottom_y": 116.0
+  },
+  {
+    "folio": 66,
+    "title": "7.47. PRUEBA 42: CAMBIO DE LIBRO CON CAMPOS NO PERMITIDOS.",
+    "bottom_y": 98.0
+  },
+  {
+    "folio": 67,
+    "title": "7.48. PRUEBA 43: BAJA DE LIBRO INEXISTENTE.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 68,
+    "title": "7.49. PRUEBA 44: BAJA DE LIBRO CON ID INVÁLIDO.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 69,
+    "title": "7.50. PRUEBA 45: ELIMINAR GÉNERO DE CONTROL.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 70,
+    "title": "7.51. PRUEBA 46: ELIMINAR GÉNERO DE PRUEBAS NEGATIVAS.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 71,
+    "title": "7.52. PRUEBA 47: CONFIRMAR GÉNEROS VACÍOS.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 72,
+    "title": "7.53. PRUEBA 48: BÚSQUEDA EXTERNA CON PARÁMETRO VACÍO.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 73,
+    "title": "7.54. PRUEBA 49: DETALLE EXTERNO CON ID INVÁLIDO.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 74,
+    "title": "7.55. PRUEBA 50: BUSCAR PEDRO PÁRAMO EN OPEN LIBRARY REAL.",
+    "bottom_y": 98.0
+  },
+  {
+    "folio": 75,
+    "title": "7.56. PRUEBA 51: CONSULTAR OBRA EN OPEN LIBRARY REAL.",
+    "bottom_y": 134.0
+  },
+  {
+    "folio": 76,
+    "title": "8. RESULTADOS Y EVIDENCIAS.",
+    "bottom_y": 280
+  },
+  {
+    "folio": 77,
+    "title": "8. RESULTADOS Y EVIDENCIAS (CONTINUACIÓN).",
+    "bottom_y": 280
+  },
+  {
+    "folio": 78,
+    "title": "8. RESULTADOS Y EVIDENCIAS (CONTINUACIÓN).",
+    "bottom_y": 280
+  },
+  {
+    "folio": 79,
+    "title": "8.1. TRAZABILIDAD Y VALIDACIÓN FINAL.",
+    "bottom_y": 221
+  },
+  {
+    "folio": 80,
+    "title": "8.2. CONCLUSIONES Y LÍMITES.",
+    "bottom_y": 146
+  },
+  {
+    "folio": 81,
+    "title": "8.3. REPRODUCCIÓN Y FUENTES.",
+    "bottom_y": 191
+  }
+]

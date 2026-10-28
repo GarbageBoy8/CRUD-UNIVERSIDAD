@@ -1,0 +1,103 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8032/servicios/libros?q=fox",
+    "header": [
+      {
+        "key": "User-Agent",
+        "value": "PostmanRuntime/7.56.1",
+        "system": true
+      },
+      {
+        "key": "Accept",
+        "value": "*/*",
+        "system": true
+      },
+      {
+        "key": "Cache-Control",
+        "value": "no-cache",
+        "system": true
+      },
+      {
+        "key": "Postman-Token",
+        "value": "5c8c6790-81f0-42c7-b8df-0c0936d280f7",
+        "system": true
+      },
+      {
+        "key": "Host",
+        "value": "127.0.0.1:8032",
+        "system": true
+      },
+      {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate, br",
+        "system": true
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive",
+        "system": true
+      }
+    ],
+    "method": "GET",
+    "body": ""
+  },
+  "response": {
+    "id": "923e66c5-ffc2-4bd1-8724-6378d33cdc41",
+    "status": "OK",
+    "code": 200,
+    "header": [
+      {
+        "key": "X-Powered-By",
+        "value": "Express"
+      },
+      {
+        "key": "Content-Type",
+        "value": "application/json; charset=utf-8"
+      },
+      {
+        "key": "Content-Length",
+        "value": "101"
+      },
+      {
+        "key": "ETag",
+        "value": "W/\"65-nxIC4rWfTVFsNvNQJ4gXbKO6lNU\""
+      },
+      {
+        "key": "Date",
+        "value": "Wed, 28 Oct 2026 06:31:03 GMT"
+      },
+      {
+        "key": "Connection",
+        "value": "keep-alive"
+      },
+      {
+        "key": "Keep-Alive",
+        "value": "timeout=5"
+      }
+    ],
+    "cookie": [],
+    "responseTime": 62,
+    "responseSize": 101,
+    "downloadedBytes": 101,
+    "body": "{\"datos\": [{\"id\": \"OL45804W\", \"nombre\": \"Fantastic Mr. Fox\", \"autor\": \"Roald Dahl\", \"anio\": 1970}], \"total\": 1}"
+  },
+  "timestamp": "2026-10-28T06:31:03.405Z",
+  "tests": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "results": [
+      {
+        "name": "HTTP 200",
+        "passed": true,
+        "consoleLogs": []
+      },
+      {
+        "name": "Obra adaptada",
+        "passed": true,
+        "consoleLogs": []
+      }
+    ]
+  },
+  "scriptLogs": []
+}

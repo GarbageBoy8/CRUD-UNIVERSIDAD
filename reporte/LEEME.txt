@@ -1,0 +1,79 @@
+ENTREGA SDD — EJERCICIO CRUD / BIBLIOTECA LUMBRE
+Alumno: José Antonio Pareja Pérez. Ingeniería en Sistemas Computacionales.
+Portada: viernes 23 de octubre de 2026 (fecha solicitada).
+Las evidencias conservan la fecha real de ejecución.
+
+ENTREGAR
+- REPORTE DE PRACTICA - EJERCICIO CRUD.pdf (versión de entrega).
+- El DOCX es una copia editable; puede cambiar de paginación en otro editor.
+- Código de Ejercicio CRUD, docs/ESPECIFICACION-SDD.md y carpeta reporte/.
+- 51 capturas numeradas y 4 capturas de Postman Desktop en evidencias/.
+- 51 exportaciones JSON, resumen resultados.json y colección importable.
+- SHA256SUMS.txt: integridad de las capturas.
+
+INSTALAR EN OTRO EQUIPO
+Desde Ejercicio CRUD:
+  npm ci
+  cp .env.example .env
+Generar un secreto y escribirlo como JWT_SECRET en .env:
+  node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+Ajustar usuario/contraseña locales. No publicar .env ni compartir secretos.
+  docker compose up -d
+  npm run seed
+  npm start
+La aplicación habitual escucha en 8021; /api muestra rutas.
+
+REPRODUCIR LAS PRUEBAS (desde Ejercicio CRUD)
+Instalar Postman CLI por el método oficial si no está disponible.
+1. MongoDB: docker compose up -d
+2. Terminal A:
+   node reporte/scripts/servidor-pruebas.cjs
+3. Terminal B:
+   postman simulation run postman/simulations/openlibrary.sim.yaml --port 4901 --output ndjson
+4. Terminal C:
+   OPENLIBRARY_API_URL=http://127.0.0.1:4901/openlibrary REPORTE_PORT=8032 node reporte/scripts/servidor-pruebas.cjs
+5. Terminal D:
+   postman collection run reporte/Lumbre-CRUD.postman_collection.json --env-var "tokenVencido=$(cat /tmp/lumbre-reporte-expirado-8031.txt)" --no-report-events
+6. Verificar código:
+   OPENLIBRARY_TEST_URL=http://127.0.0.1:4901/openlibrary npm test
+
+La colección contiene 51 solicitudes y 102 aserciones. La API, MongoDB y Axios
+son reales. Solo 22–25 usan proveedor simulado; 50–51 requieren internet para
+Open Library público. Esas pruebas comprueban disponibilidad en ese momento.
+Las pruebas deben ejecutarse en orden y sobre bases temporales vacías.
+Si se interrumpe antes de borrar sus datos, detener y reiniciar el servidor A.
+Al terminar, Ctrl+C en A y C elimina exclusivamente sus bases temporales.
+Ctrl+C en B detiene la simulación. docker compose stop conserva el catálogo.
+
+USAR POSTMAN DESKTOP
+Importar Lumbre-CRUD.postman_collection.json y revisar Variables:
+baseUrl=8031, baseExterna=8032, usuario=practica, contrasena=PracticaCRUD2026!.
+Asignar tokenVencido leyendo el archivo temporal generado por el servidor A.
+El login guarda token; las altas guardan idGenero, idLibro e idOtroGenero.
+Authorization usa Bearer Token con {{token}}. Body usa raw JSON.
+Ejecutar Send individualmente o Run collection en orden.
+La colección incluye ejemplos de respuestas sanitizadas y scripts pm.test.
+Las cuatro capturas Desktop son solicitudes sin guardar; no se publicó una
+colección ni se modificó el contenido de un workspace compartido.
+
+REGENERAR LAS CAPTURAS CLI
+capturar-pruebas.py se ejecuta en Kitty X11 con ImageMagick import disponible.
+Ventana con título exacto Pruebas API Lumbre, 1280x1000, fuente de tamaño 10.
+Ejecutar primero sin argumentos (1–21), luego --externo (22–25), y por último
+--complemento (26–51). No ejecutar estos pasos simultáneamente.
+El script usa postman request, guarda sus exportaciones, oculta tokens y
+presenta el resultado en terminal. Los tiempos y respuestas son los observados.
+Solo las respuestas públicas largas se abrevian en pantalla, no en los JSON.
+
+GENERAR REPORTE
+Python con reportlab, python-docx, Arial y Courier New instaladas:
+  python reporte/scripts/generar-reporte.py
+El contenido en entrega.py sigue los ocho criterios. contenido.py conserva
+las explicaciones de los primeros 25 casos, utilizadas por entrega.py.
+El script comprueba estados/aserciones y el espacio disponible de cada página.
+
+LÍMITES
+SDD se documenta para la iteración de entrega, antes de sus cambios; no se
+atribuye una especificación previa a la implementación inicial ya existente.
+La biblioteca es una práctica local de administrador único, sin transacciones
+para escrituras concurrentes, despliegue público ni pruebas de carga.
